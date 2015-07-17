@@ -1,0 +1,7 @@
+<ul>
+	<% @articles.each do |article| %>
+		<li>
+			<%= link_to "#{ article.title }", section_subscription_article_path(@section, @subscription, article) %>
+		</li>
+	<% end %>
+</ul>
