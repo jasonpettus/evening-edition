@@ -1,0 +1,7 @@
+<ul>
+	<% @subscriptions.each do |subscription| %>
+		<li>
+			<%= link_to "#{ subscription.feed_url }", section_subscription_path(@section, subscription) %>
+		</li>
+	<% end %>
+</ul>
