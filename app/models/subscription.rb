@@ -22,6 +22,15 @@ class Subscription < ActiveRecord::Base
 
 	private
 		def save_articles
+			strip_images
 			@entries.each { |article| article.save }
+		end
+
+		def strip_images
+			@entries.each do |entry|
+				no_images = entry.summary.gsub!(/<img.*?>/,"")
+				no_links = no_images.gsub!(/<a.*?<\/a>/,"")
+				no_links.gsub!(/<br.*?>/,"")
+			end
 		end
 end
