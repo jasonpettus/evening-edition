@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
-      user_logged_in ? nil : User.find(session['user_id'])
+      user_logged_in? ? User.find(session['user_id']) : nil
     end
 
     def authorize_user_logged_in
