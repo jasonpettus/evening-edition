@@ -1,6 +1,6 @@
 <div class="masthead">
   <p class="logo">
-    <img src="assets/images/eelogo.jpg" alt="The Evening Edition" border=0>
+    <%= image_tag("eelogo.jpg", alt: "The Evening Edition") %>
   </p>
 
   <p>
@@ -9,12 +9,12 @@
   </p>
 
   <p class="mdl-typography--caption">
-    Personalized for John Smith / Log out
+    Personalized for John Smith / <%= link_to "Log out", users_logout_path %>
   </p>
 
   <p class="mdl-typography--caption">
-    Members receive personalized subscriptions, personalized sections,<br>
-    and personalized delivery times. <%= link_to "Create a free account" new_user_path %> or<br>
-    <%= link_to "log in" login_user_path %> now.
+    Members receive personalized subscriptions,<br>
+    personalized sections, and personalized delivery times.<br>
+    <%= link_to "Create a free account", users_new_path %> or <%= link_to "log in", users_login_path %> now.
   </p>
 </div>
