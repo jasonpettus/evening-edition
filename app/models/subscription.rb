@@ -4,7 +4,7 @@ class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
 	has_many		:articles, dependent: :destroy
-	has_one	:user, through: :section
+	has_one		:user, through: :section
 	belongs_to 	:section
 	before_save	:get_articles
 	after_save	:save_articles
