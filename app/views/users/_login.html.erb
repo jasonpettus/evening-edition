@@ -1,0 +1,5 @@
+<%= form_tag("/users/login", method: 'POST') do %>
+  <%= text_field_tag "Email", placeholder: "Email" %>
+  <%= text_field_tag "Password", placeholder: "Password" %>
+  <%= submit_tag "Login" %>
+<% end %>
