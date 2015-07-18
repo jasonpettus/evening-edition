@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
