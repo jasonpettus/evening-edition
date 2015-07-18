@@ -4,7 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
+    def user_logged_in?
+      !session['user_id'].nil?
+    end
     def current_user
-      session['user_id'].nil? ? nil : User.find(session['user_id'])
+      user_logged_in ? nil : User.find(session['user_id'])
+    end
+
+    def authorize_user_logged_in
+      redirect_to root_path unless user_logged_in
     end
 end

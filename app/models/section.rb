@@ -1,5 +1,5 @@
 class Section < ActiveRecord::Base
-	has_many 	:subscriptions
+	has_many 	:subscriptions, dependent: :destroy
 	belongs_to	:user
   has_many :articles, through: :subscriptions
 
@@ -35,5 +35,4 @@ class Section < ActiveRecord::Base
     end
     clusters
   end
-
 end
