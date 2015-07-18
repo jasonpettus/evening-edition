@@ -4,7 +4,7 @@ class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
 	has_many		:articles, class_name: "Article"
-	belongs_to	:user, through: :section
+	has_one	:user, through: :section
 	belongs_to 	:section
 	before_save	:get_articles
 	after_save	:save_articles
@@ -38,7 +38,7 @@ class Subscription < ActiveRecord::Base
 					img_areas << FastImage.size(node.attr('src')).reduce(1) { |length, width| length * width }
 				end
 				largest = img_areas.index(img_areas.max)
-				
+
 			end
 		end
 
