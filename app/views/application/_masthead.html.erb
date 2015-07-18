@@ -1,0 +1,22 @@
+<div class="masthead">
+  <p class="logo">
+    <%= image_tag("eelogo.jpg", alt: "The Evening Edition") %>
+  </p>
+
+  <p>
+    <span class="mdl-typography--title"><%= Time.now.strftime("For %B %d, %Y") %></span><br>
+    <span class="mdl-typography--caption">Updated each day at 5 pm Chicago local time</span>
+  </p>
+
+  <div class="login mdl-color--orange-900">
+    <span class="mdl-typography--caption">
+      <% if 1 == 1 %>
+        Personalized for John Smith / <%= link_to "Log out", users_logout_path %>
+      <% else %>
+        Members receive personalized subscriptions,
+        personalized sections, and personalized delivery times.<br>
+        <%= link_to "Create a free account", users_new_path %> or <%= link_to "log in", users_login_path %> now.
+      <% end %>
+    </span>
+  </div>
+</div>
