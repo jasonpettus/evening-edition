@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+
       login_user(@user)
       redirect_to root_path
     else
@@ -29,9 +30,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    @user = current_user
+    @sections = @user.sections
+  end
+
   private
     def user_params
-      params.require(:user).permit(:username, :password)
+      params.require(:user).permit(:email, :password)
     end
 
     def login_user(user)

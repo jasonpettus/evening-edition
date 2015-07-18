@@ -20,7 +20,7 @@ class Section < ActiveRecord::Base
 
   private
   def cluster_articles(articles)
-    articles = articles.map { |x| x }
+    articles = articles.order('id').map { |x| x }
     clusters = []
     while articles.length > 0
       n = 0
