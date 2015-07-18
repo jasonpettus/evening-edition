@@ -1,9 +1,18 @@
 class UsersController < ApplicationController
 
   def login
+    user = User.find_by(username: params['username'])
+    if user.authenticate(params['password'])
+      login_user(user)
+      redirect_to :back
+    else
+      render :back
+    end
   end
 
   def logout
+    logout_user
+    redirect_to :back
   end
 
   def create
@@ -26,10 +35,10 @@ class UsersController < ApplicationController
     end
 
     def login_user(user)
-      session[user_id] = user.id
+      session['user_id'] = user.id
     end
 
     def logout_user
-      session[user_id] = nil
+      session['user_id'] = nil
     end
 end
