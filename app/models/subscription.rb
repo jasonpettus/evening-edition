@@ -3,7 +3,7 @@ require 'open-uri'
 class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
-	has_many	:articles, class_name: "Article"
+	has_many		:articles, dependent: :destroy
 	has_one		:user, through: :section
 	belongs_to 	:section
 	before_save	:get_articles
