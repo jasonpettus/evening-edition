@@ -54,6 +54,6 @@ class SectionsController < ApplicationController
     end
 
     def user_default_section
-      user_logged_in ? current_user.sections.first : nil
+      user_logged_in? ? current_user.sections.first : nil
     end
 end
