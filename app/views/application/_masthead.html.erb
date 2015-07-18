@@ -11,7 +11,7 @@
   <div class="login mdl-color--orange-900">
     <span class="mdl-typography--caption">
       <% if user_logged_in? %>
-         <%= link_to "Log out", users_logout_path %>
+        Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path %>
       <% else %>
         Members receive personalized subscriptions,
         personalized sections, and personalized delivery times.<br>
