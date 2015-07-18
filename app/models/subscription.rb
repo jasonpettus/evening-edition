@@ -48,13 +48,15 @@ class Subscription < ActiveRecord::Base
 
 			largest = img_areas.index(img_areas.max)
 			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << "NONE"
+			article.img_link = feature_imgs[-1]
 		end
 		return feature_imgs
 	end
 
 	private
 		def save_articles
-			strip_ads 
+			strip_ads
+			get_feature_imgs(self.articles) 
 			self.articles.each { |article| article.save }
 		end
 
