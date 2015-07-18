@@ -35,5 +35,4 @@ class Section < ActiveRecord::Base
     end
     clusters
   end
-
 end
