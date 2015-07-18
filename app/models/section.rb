@@ -11,12 +11,15 @@ class Section < ActiveRecord::Base
     # Check article similarity with other articles
     # Group by similarity
     cluster_articles(articles)
+
+    # So we want to format things so the most important stories are first
+    # We also want to point out the preferred article, so I guess we order the
+    # clusters array with the longest length first, and order each cluster alphabetically
+    # except with the preferred feeds first.
   end
 
   private
   def cluster_articles(articles)
-    # p articles.length
-    # p articles
     articles = articles.map { |x| x }
     clusters = []
     while articles.length > 0
