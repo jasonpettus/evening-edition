@@ -27,6 +27,11 @@ p {
   text-align: center;
 }
 
+.login {
+  margin: 0;
+  padding: 0.5em;
+}
+
 .mdl-grid {
   max-width: 900px;
 }
