@@ -1,4 +1,6 @@
 require 'open-uri'
+require 'mechanize'
+require 'net/http'
 
 class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
@@ -10,7 +12,7 @@ class Subscription < ActiveRecord::Base
 	after_save	:save_articles
 
 	def set_feed=(rss)
-		@feed = Feedjira::Feed.fetch_and_parse(rss)
+		@feed = Feedjira::Feed.fetch_and_parse(rss) #--***
 		self.feed_url = rss
 		self.url = self.feed.url
 	end
@@ -20,36 +22,49 @@ class Subscription < ActiveRecord::Base
 		@entries.map! do |entry|
 			Article.new(set_article: entry)
 		end
-		@entries.each { |entry| self.articles << entry }
+		@entries.each { |entry| self.articles << entry } 
 	end
 
-	def get_feature_imgs
-		feature_imgs = []
-		img_areas = []
-		@entries.map do |entry|
-			Nokogiri::HTML(open(entry.url)).css('img').each do |node|
-				feature_imgs << node.attr('src')
-				img_areas << FastImage.size(node.attr('src')).reduce(1) { |length, width| length * width }
+	def get_feature_imgs(articles) # => Takes 13s for 20 articles from "http://rss.nytimes.com/services/xml/rss/nyt/Science.xml" feed
+		feature_imgs = [] # => holds feature img srcs
+		articles.map do |article| 
+			all_img_urls = [] # => holds img srcs
+			img_areas = [] # => holds dimensions
+			response = Net::HTTP.get_response(URI.parse(article.url))
+			puts ">" * 50 + response.code
+			if response.code.match(/30\d/) 
+				article_url = response.header['location']
+			else
+				article_url = article.url
 			end
+
+			agent = Mechanize.new
+			page = agent.get(article_url).images.each do |img|
+				all_img_urls << img.src
+				dimensions = FastImage.size(img.src)
+				dimensions ? area = dimensions.reduce(1) { |length, width| length * width } : area = 0
+				img_areas << area
+			end
+
 			largest = img_areas.index(img_areas.max)
-			
+			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << "NONE"
 		end
+		return feature_imgs
 	end
 
 	private
 		def save_articles
-			strip_ads
-			@entries.each { |article| article.save }
+			strip_ads 
+			self.articles.each { |article| article.save }
 		end
 
 		def strip_ads
-			@entries.each do |entry|
-				if entry.summary.include? "<img"
-					no_images = entry.summary.gsub!(/<img.*?>/,"")
-				elsif entry.summary.include? "</a>"
-					no_links = no_images.gsub!(/<a.*?<\/a>/,"")
-				elsif entry.summary.include? "<br"
-					no_links.gsub!(/<br.*?>/,"")
+			self.articles.each do |article|
+				p article.summary.nil?
+				unless article.summary.nil?
+						no_images = article.summary.gsub!(/<img.*?>/,"")
+						no_links = no_images.gsub!(/<a.*?<\/a>/,"")
+						no_links.gsub!(/<br.*?>/,"")
 				end
 			end
 		end
