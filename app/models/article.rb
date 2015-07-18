@@ -11,6 +11,10 @@ class Article < ActiveRecord::Base
 	end
 
   def is_similar_to?(article)
+    # p title
+    # p article.title
+    # p Text::WhiteSimilarity.new.similarity(title, article.title)
+    # p '***************************'
     Text::WhiteSimilarity.new.similarity(title, article.title) >= 0.4
   end
 end
