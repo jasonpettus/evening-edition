@@ -1,27 +1,3 @@
-.lora {
-  font-family: 'Lora', serif;
-  font-size: 1.25em;
-  line-height: 1.4em;
-}
-
-.vollkorn {
-  font-family: 'Vollkorn', serif;
-  font-size: 1.25em;
-  line-height: 1.4em;
-}
-
-.crimson {
-  font-family: 'Crimson Text', serif;
-  font-size: 1.25em;
-  line-height: 1.4em;
-}
-
-.cardo {
-  font-family: 'Cardo', serif;
-  font-size: 1.25em;
-  line-height: 1.4em;
-}
-
 .lusitana {
   font-family: 'Lusitana', serif;
   font-size: 1.25em;
@@ -61,7 +37,7 @@ p {
 }
 
 .image {
-  background-image: url("obama.jpg");
+  background-image: url("../images/obama.jpg");
   height: 500px;
   background-size: cover;
   background-repeat: no-repeat;
