@@ -3,6 +3,7 @@ require 'mechanize'
 require 'net/http'
 
 class Subscription < ActiveRecord::Base
+
 	attr_reader	:feed, :entries
 
 	has_many		:articles, dependent: :destroy
@@ -32,29 +33,36 @@ class Subscription < ActiveRecord::Base
 			img_areas = [] # => holds dimensions
 			response = Net::HTTP.get_response(URI.parse(article.url))
 			puts ">" * 50 + response.code
+			begin
 			if response.code.match(/30\d/)
 				article_url = response.header['location']
+				# article_url = ""
 			else
 				article_url = article.url
 			end
 
+			rescue ArgumentError
 			agent = Mechanize.new
-			page = agent.get(article_url).images.each do |img|
-					p ">" * 25 
-					p img
-					p ">" * 25 
-				img_src = img.src 
-				if img_src 
-					all_img_urls << img_src 
-					img = ImageInfo.from(img_src)[0]
-					img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
-					img_areas << area
-				else
-					all_img_urls << "NONE"
-					img_areas << 0
-				end
-				
+				page = agent.get(article_url)
+				page.images.each do |img|
+						p ">" * 25 
+						p img
+						p ">" * 25 
+					img_src = img.src 
+					if img_src 
+						all_img_urls << img_src 
+						img = ImageInfo.from(img_src)[0] # switched to this from FastImage to better handle 64bit (FILENAME too long)
+						img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
+						img_areas << area
+					else
+						all_img_urls << "NONE"
+						img_areas << 0
+					end
+				img_src = "http://google.com"
+				all_img_urls << img_src
+				img_areas << 0
 			end
+				end
 
 			largest = img_areas.index(img_areas.max)
 			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << "NONE"
@@ -73,9 +81,8 @@ class Subscription < ActiveRecord::Base
 		def strip_ads
 			self.articles.each do |article|
 				unless article.summary.nil?
-					article.summary.gsub!(/<img.*?>/,"")
-					article.summary.gsub!(/<a.*?<\/a>/,"")
-					article.summary.gsub!(/<br.*?>/,"")
+						stripped = article.summary.gsub(/<img.*?>/,"").gsub(/<a.*?<\/a>/,"").gsub(/<br.*?>/,"")
+						article.summary = stripped
 				end
 			end
 		end
