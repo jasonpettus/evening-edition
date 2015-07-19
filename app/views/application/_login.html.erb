@@ -1,0 +1,8 @@
+<div class="form_box">
+  <%= form_tag("/users/login", method: 'POST') do %>
+    <p><%= text_field_tag "email", placeholder: "Email" %></p>
+    <p><%= text_field_tag "password", placeholder: "Password" %></p>
+    <p><%= text_field_tag "password_confirmation", placeholder: 'Password Confirmation' %></p>
+    <p><%= submit_tag "Login" %></p>
+  <% end %>
+</div>
