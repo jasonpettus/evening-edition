@@ -2,17 +2,14 @@
 <%= render "application/main" %>
 
 <div class="form_box">
-  <% if @user.errors.any? %>
-    <ul>
-      <% @user.errors.full_messages.each do |error_message| %>
-        <li><%= error_message %></li>
-      <% end %>
-    </ul>
+  <% if session['login_error'] %>
+    <p><%= Incorrect Email or Password %></p>
   <% end %>
 
   <%= form_for @user do |f| %>
-    <p><%= f.text_field :email, placeholder: 'Email' %></p>
-    <p><%= f.text_field :password, placeholder: 'Password' %></p>
-    <p><%= f.submit value: 'Create Account' %></p>
+    <%= f.text_field :email, placeholder: 'email' %>
+    <%= f.text_field :password, placeholder: 'password' %>
+    <%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %>
+    <%= f.submit value: 'Create Account' %>
   <% end %>
-</div>
+

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
       login_user(user)
       redirect_to :back
     else
+      session['login_error'] = true
       render :back
     end
   end
@@ -18,9 +19,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-
       login_user(@user)
-      redirect_to root_path
+      redirect_to new_section_path
     else
       render 'new'
     end
