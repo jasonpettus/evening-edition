@@ -17,14 +17,17 @@ RSpec.describe Section, :type => :model do
   end
 
   describe '#stories' do
-    it 'returns a list of articles' do
-      # expect(@section.stories).to be_an(Array)
-      expect(@section.stories.flatten).to all(be_an(Article))
+    it 'returns a list of new stories' do
+      expect(@section.stories).to all(satisfy { |story| story.has_key?(:preferred)})
+      expect(@section.stories).to all(satisfy { |story| story.has_key?(:other_stories)})
+      expect(@section.stories).to all(satisfy { |story| story.has_key?(:size)})
     end
 
     it 'clusters the articles so articles on the same story are grouped' do
       expect(@section.stories.length).to eq(3)
-      expect(@section.stories).to contain_exactly([@article1, @article1dup, @article1dubdup], [@article2, @article2dup], [@article3])
+      expect(@section.stories).to contain_exactly( {preferred: @article1, other_stories: [@article1dup, @article1dubdup], size: 'medium'},
+                                                    {preferred: @article2, other_stories: [@article2dup], size: 'medium'},
+                                                    {preferred: @article3, other_stories: [], size: 'medium'})
     end
     it 'is ordered with most popular articles first'
   end

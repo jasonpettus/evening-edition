@@ -19,6 +19,6 @@ class ApplicationController < ActionController::Base
     end
 
     def authorize_user_logged_in
-      redirect_to root_path unless user_logged_in
+      redirect_to root_path unless user_logged_in?
     end
 end
