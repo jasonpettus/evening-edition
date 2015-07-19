@@ -1,20 +1,18 @@
 class SectionsController < ApplicationController
 
-  before_action :authorize_user_logged_in, except: :index
+  before_action :authorize_user_logged_in, except: :show
 
-	def index
-    if user_logged_in?
-      redirect_to(user_url(current_user))
-    else
-    	@section = Section.find_by(title: 'Default')
-      @stories = @section.stories
-    end
-	end
 
 	def show
-		@active_section = Section.find(params[:id])
-    @sections = current_user.sections
-		@stories = @section.stories
+    if user_logged_in?
+  	@active_section = Section.find(params[:id])
+      	@sections = current_user.sections
+  	@stories = @section.stories
+    else
+      @section = Section.find_by(title: 'default')
+      @stories = @section.stories
+      render 'default'
+    end
 	end
 
   def edit

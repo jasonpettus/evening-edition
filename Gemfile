@@ -32,7 +32,6 @@ gem 'fastimage'
 gem 'image_info'
 gem 'open_uri_redirections'
 gem 'mechanize'
-gem 'image_info'
 
 gem 'text'
 
