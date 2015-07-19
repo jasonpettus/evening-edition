@@ -65,7 +65,7 @@ class Subscription < ActiveRecord::Base
 				img_areas << 0
 				end
 				rescue ArgumentError
-						all_img_urls << "NONE"
+						all_img_urls << nil
 						img_areas << 0
 				end
 
