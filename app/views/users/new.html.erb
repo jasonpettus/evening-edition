@@ -1,11 +1,6 @@
-<div class="form_box">
-  <% if @user.errors.any? %>
-    <ul>
-      <% @user.errors.full_messages.each do |error_message| %>
-        <li><%= error_message %></li>
-      <% end %>
-    </ul>
-  <% end %>
+<% if session['login_error'] %>
+  <p><%= Incorrect Email or Password %></p>
+<% end %>
 
 <%= form_for @user do |f| %>
   <%= f.text_field :email, placeholder: 'email' %>
@@ -13,4 +8,3 @@
   <%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %>
   <%= f.submit value: 'Create Account' %>
 <% end %>
-

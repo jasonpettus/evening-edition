@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
 
   def login
-    user = User.find_by(username: params['username'])
+    user = User.find_by(email: params['email'])
     if user.authenticate(params['password'])
       login_user(user)
       redirect_to :back
     else
+      session['login_error'] = true
       render :back
     end
   end
