@@ -6,9 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-default_section = Section.create!(title: 'Default9')
+default_section = Section.create!(title: 'Default20')
 
-default_section.subscriptions.create(set_feed: 'http://america.aljazeera.com/content/ajam/articles.rss', name: 'Al Jazeera America')
-# default_section.subscriptions.create!(set_feed: 'http://feeds.bbci.co.uk/news/rss.xml', name: 'BBC Top Stories')
-default_section.subscriptions.create!(set_feed: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', name: 'NYTimes US')
-
+File.foreach('db/defaultfeeds.txt').each_slice(3) do |feed|
+  p feed[0].chomp
+  p feed[1].chomp
+  default_section.subscriptions.create(name: feed[0].chomp, set_feed: feed[1].chomp)
+end
