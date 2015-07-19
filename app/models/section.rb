@@ -10,7 +10,8 @@ class Section < ActiveRecord::Base
     # Get all the articles
     # Check article similarity with other articles
     # Group by similarity
-    story_clusters = cluster_articles(articles)
+    stories = subscriptions.map { |subscription| subscription.recent_articles }
+    story_clusters = cluster_articles(stories.flatten)
     stories_to_hash(story_clusters)
     # So we want to format things so the most important stories are first
     # We also want to point out the preferred article, so I guess we order the
@@ -20,9 +21,12 @@ class Section < ActiveRecord::Base
 
   private
   def cluster_articles(articles)
-    articles = articles.order('id').map { |x| x }
+    p articles.length
+    articles = articles.map { |x| x }
     clusters = []
     while articles.length > 0
+      p '---------'
+      p articles.length
       n = 0
       clusters << []
       while n < articles.length
@@ -39,7 +43,7 @@ class Section < ActiveRecord::Base
   def stories_to_hash(cluster)
     cluster.map do |story_cluster|
       # sort story_cluster so preferred stories are first
-      { preferred: story_cluster[0], other_stories: story_cluster[1..-1], size: 'medium' }
+      { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => 'medium' }
     end
   end
 end

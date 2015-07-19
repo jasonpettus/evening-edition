@@ -7,6 +7,7 @@ class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
 	has_many		:articles, dependent: :destroy
+	has_many	:recent_articles, -> { order("created_at DESC").limit(5) }, class_name: 'Article'
 	has_one		:user, through: :section
 	belongs_to 	:section
 	before_save	:get_articles
@@ -31,7 +32,7 @@ class Subscription < ActiveRecord::Base
 		articles.map do |article|
 			all_img_urls = [] # => holds img srcs
 			img_areas = [] # => holds dimensions
-			response = Net::HTTP.get_response(URI.parse(article.url))
+			response = Net::HTTP.get_response(URI.parse(URI.encode(article.url)))
 			puts ">" * 50 + response.code
 			begin
 			if response.code.match(/30\d/)
@@ -45,12 +46,12 @@ class Subscription < ActiveRecord::Base
 			agent = Mechanize.new
 				page = agent.get(article_url)
 				page.images.each do |img|
-						p ">" * 25 
+						p ">" * 25
 						p img
-						p ">" * 25 
-					img_src = img.src 
-					if img_src 
-						all_img_urls << img_src 
+						p ">" * 25
+					img_src = img.src
+					if img_src
+						all_img_urls << img_src
 						img = ImageInfo.from(img_src)[0] # switched to this from FastImage to better handle 64bit (FILENAME too long)
 						img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
 						img_areas << area

@@ -17,7 +17,7 @@ Chicago Tribune: Front Page
 http://www.chicagotribune.com/rss2.0.xml
 
 TIME
-http://newsfeed.time.com/feed/&t1=
+http://newsfeed.time.com/feed
 
 Newsweek
 http://www.newsweek.com/rss
