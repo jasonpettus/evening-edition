@@ -5,9 +5,9 @@ class SectionsController < ApplicationController
 
 	def show
     if user_logged_in?
-    	@active_section = Section.find(params[:id])
+    	@active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
     	@sections = current_user.sections
-    	@stories = @section.stories
+    	@stories = @active_section.stories
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.stories
