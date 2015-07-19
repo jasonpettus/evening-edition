@@ -99,8 +99,13 @@ p {
   padding: 4em;
 }
 
-input {
+.form_box input {
   font-family: 'Lusitana', serif;
   font-size: 1.25em;
   width: 40%;
+}
+
+.login_box input {
+  font-family: 'Lusitana', serif;
+  font-size: 12px;
 }
