@@ -1,7 +1,7 @@
 <div class="mdl-cell mdl-cell--8-col-phone round mdl-cell--8-col">
-  <%= image_tag(article.img_link, width: '200', class: "med_box_image fl-r") %>
+  <%= image_tag(story['preferred'].img_link, width: '200', class: "med_box_image fl-r") %>
 
-  <button id="#{article.id}" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
+  <button id="<%= story['preferred'].id %>" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
     <i class="material-icons">more_vert</i>
   </button>
 
@@ -11,7 +11,7 @@
 
   <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= story["preferred"].subscription.name %></span>
 
-  <ul for="#{story.id}" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
+  <ul for="<%= story['preferred'].id %>" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
     <p class="mdl-menu__item">Related:</p>
     <% story["other_sources"].each do |related| %>
       <li class="mdl-menu__item"><%= link_to related.title, related.url %> <span class="mdl-color-text--grey-500">--<%= related.subscription.name %></span></li>

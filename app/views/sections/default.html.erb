@@ -5,13 +5,13 @@
   <% @stories.each do |story| %>
     <% case story["size"] %>
       <% when "splash" %>
-        <%= render "application/article_splash" %>
+        <%= render partial: "application/article_splash", locals: { story: story } %>
       <% when "big" %>
-        <%= render "application/article_big" %>
+        <%= render partial: "application/article_big", locals: { story: story } %>
       <% when "medium" %>
         <%= render partial: "application/article_medium", locals: { story: story } %>
       <% when "small" %>
-        <%= render "application/article_small" %>
+        <%= render partial: "application/article_small", locals: { story: story } %>
     <% end %>
   <% end %>
 </div>
