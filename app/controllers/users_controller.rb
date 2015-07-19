@@ -6,6 +6,7 @@ class UsersController < ApplicationController
       login_user(user)
       redirect_to :back
     else
+      session['login_error'] = true
       render :back
     end
   end
