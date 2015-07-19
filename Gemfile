@@ -31,6 +31,7 @@ gem 'nokogiri'
 gem 'fastimage'
 gem 'open_uri_redirections'
 gem 'mechanize'
+gem 'image_info'
 
 gem 'text'
 
