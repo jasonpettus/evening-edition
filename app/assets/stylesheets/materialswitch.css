@@ -14,24 +14,25 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  .mdl-switch.is-upgraded {
-    padding-left: 28px; }
+
+.mdl-switch.is-upgraded {
+  padding-left: 28px; }
 
 .mdl-switch__input {
   line-height: 24px; }
 
-  .mdl-switch.is-upgraded .mdl-switch__input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    border: none; }
+.mdl-switch.is-upgraded .mdl-switch__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none; }
 
 .mdl-switch__track {
   background: rgba(0,0,0, 0.26);
@@ -42,11 +43,13 @@
   width: 36px;
   border-radius: 14px;
   cursor: pointer; }
-  .mdl-switch.is-checked .mdl-switch__track {
-    background: rgba(63,81,181, 0.5); }
-  .mdl-switch.is-disabled .mdl-switch__track {
-    background: rgba(0,0,0, 0.12);
-    cursor: auto; }
+
+.mdl-switch.is-checked .mdl-switch__track {
+  background: rgba(63,81,181, 0.5); }
+
+.mdl-switch.is-disabled .mdl-switch__track {
+  background: rgba(0,0,0, 0.12);
+  cursor: auto; }
 
 .mdl-switch__thumb {
   background: rgb(250,250,250);
@@ -64,13 +67,15 @@
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transition-property: left;
           transition-property: left; }
-  .mdl-switch.is-checked .mdl-switch__thumb {
-    background: rgb(63,81,181);
-    left: 16px;
-    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12); }
-  .mdl-switch.is-disabled .mdl-switch__thumb {
-    background: rgb(189,189,189);
-    cursor: auto; }
+
+.mdl-switch.is-checked .mdl-switch__thumb {
+  background: rgb(63,81,181);
+  left: 16px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12); }
+
+.mdl-switch.is-disabled .mdl-switch__thumb {
+  background: rgb(189,189,189);
+  cursor: auto; }
 
 .mdl-switch__focus-helper {
   position: absolute;
@@ -85,12 +90,14 @@
   height: 8px;
   border-radius: 50%;
   background-color: transparent; }
-  .mdl-switch.is-focused .mdl-switch__focus-helper {
-    box-shadow: 0 0 0px 20px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.1); }
-  .mdl-switch.is-focused.is-checked .mdl-switch__focus-helper {
-    box-shadow: 0 0 0px 20px rgba(63,81,181, 0.26);
-    background-color: rgba(63,81,181, 0.26); }
+
+.mdl-switch.is-focused .mdl-switch__focus-helper {
+  box-shadow: 0 0 0px 20px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.mdl-switch.is-focused.is-checked .mdl-switch__focus-helper {
+  box-shadow: 0 0 0px 20px rgba(63,81,181, 0.26);
+  background-color: rgba(63,81,181, 0.26); }
 
 .mdl-switch__label {
   position: relative;
@@ -99,9 +106,10 @@
   line-height: 24px;
   margin: 0;
   left: 24px; }
-  .mdl-switch.is-disabled .mdl-switch__label {
-    color: rgb(189,189,189);
-    cursor: auto; }
+
+.mdl-switch.is-disabled .mdl-switch__label {
+  color: rgb(189,189,189);
+  cursor: auto; }
 
 .mdl-switch__ripple-container {
   position: absolute;
@@ -121,12 +129,16 @@
           transition-timing-function: step-end;
   -webkit-transition-property: left;
           transition-property: left; }
-  .mdl-switch__ripple-container .mdl-ripple {
-    background: rgb(63,81,181); }
-  .mdl-switch.is-disabled .mdl-switch__ripple-container {
-    cursor: auto; }
-  .mdl-switch.is-disabled .mdl-switch__ripple-container .mdl-ripple {
-    background: transparent; }
-  .mdl-switch.is-checked .mdl-switch__ripple-container {
-    cursor: auto;
-    left: 2px; }
+
+.mdl-switch__ripple-container .mdl-ripple {
+  background: rgb(63,81,181); }
+
+.mdl-switch.is-disabled .mdl-switch__ripple-container {
+  cursor: auto; }
+
+.mdl-switch.is-disabled .mdl-switch__ripple-container .mdl-ripple {
+  background: transparent; }
+
+.mdl-switch.is-checked .mdl-switch__ripple-container {
+  cursor: auto;
+  left: 2px; }
