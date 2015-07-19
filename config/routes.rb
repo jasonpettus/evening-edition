@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'users' => 'users#create'
   post 'users/login' => 'users#login'
   delete 'users/logout' => 'users#logout'
+  get 'users/:id' => 'users#show', as: :user
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

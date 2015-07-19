@@ -1,4 +1,6 @@
 require 'open-uri'
+require 'mechanize'
+require 'net/http'
 
 class Subscription < ActiveRecord::Base
 	attr_reader	:feed, :entries
@@ -10,7 +12,7 @@ class Subscription < ActiveRecord::Base
 	after_save	:save_articles
 
 	def set_feed=(rss)
-		@feed = Feedjira::Feed.fetch_and_parse(rss)
+		@feed = Feedjira::Feed.fetch_and_parse(rss) #--***
 		self.feed_url = rss
 		self.url = self.feed.url
 	end
@@ -23,30 +25,58 @@ class Subscription < ActiveRecord::Base
 		@entries.each { |entry| self.articles << entry }
 	end
 
+	def get_feature_imgs(articles) # => Takes 13s for 20 articles from "http://rss.nytimes.com/services/xml/rss/nyt/Science.xml" feed
+		feature_imgs = [] # => holds feature img srcs
+		articles.map do |article|
+			all_img_urls = [] # => holds img srcs
+			img_areas = [] # => holds dimensions
+			response = Net::HTTP.get_response(URI.parse(article.url))
+			puts ">" * 50 + response.code
+			if response.code.match(/30\d/)
+				article_url = response.header['location']
+			else
+				article_url = article.url
+			end
+
+			agent = Mechanize.new
+			page = agent.get(article_url).images.each do |img|
+					p ">" * 25 
+					p img
+					p ">" * 25 
+				img_src = img.src 
+				if img_src 
+					all_img_urls << img_src 
+					img = ImageInfo.from(img_src)[0]
+					img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
+					img_areas << area
+				else
+					all_img_urls << "NONE"
+					img_areas << 0
+				end
+				
+			end
+
+			largest = img_areas.index(img_areas.max)
+			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << "NONE"
+			article.img_link = feature_imgs[-1]
+		end
+		return feature_imgs
+	end
+
 	private
 		def save_articles
 			strip_ads
-			@entries.each { |article| article.save }
-		end
-
-		def get_feature_imgs
-			feature_imgs = []
-			img_areas = []
-			@entries.map do |entry|
-				Nokogiri::HTML(open(entry.url)).css('img').each do |node|
-					feature_imgs << node.attr('src')
-					img_areas << FastImage.size(node.attr('src')).reduce(1) { |length, width| length * width }
-				end
-				largest = img_areas.index(img_areas.max)
-
-			end
+			get_feature_imgs(self.articles)
+			self.articles.each { |article| article.save }
 		end
 
 		def strip_ads
-			@entries.each do |entry|
-				no_images = entry.summary.gsub!(/<img.*?>/,"")
-				no_links = no_images.gsub!(/<a.*?<\/a>/,"")
-				no_links.gsub!(/<br.*?>/,"")
+			self.articles.each do |article|
+				unless article.summary.nil?
+					article.summary.gsub!(/<img.*?>/,"")
+					article.summary.gsub!(/<a.*?<\/a>/,"")
+					article.summary.gsub!(/<br.*?>/,"")
+				end
 			end
 		end
 end

@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
 
   def login
-    user = User.find_by(username: params['username'])
+    user = User.find_by(email: params['email'])
     if user.authenticate(params['password'])
       login_user(user)
       redirect_to :back
     else
+      session['login_error'] = true
       render :back
     end
   end
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login_user(@user)
-      redirect_to root_path
+      redirect_to new_section_path
     else
       render 'new'
     end
@@ -27,11 +28,17 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @page_name = "Create Account"
+  end
+
+  def show
+    @user = current_user
+    @sections = @user.sections
   end
 
   private
     def user_params
-      params.require(:user).permit(:username, :password)
+      params.require(:user).permit(:email, :password)
     end
 
     def login_user(user)

@@ -29,15 +29,13 @@ gem 'autoprefixer-rails'
 
 gem 'nokogiri'
 gem 'fastimage'
-<<<<<<< Updated upstream
-=======
 gem 'image_info'
 gem 'open_uri_redirections'
 gem 'mechanize'
->>>>>>> Stashed changes
 
 gem 'text'
 
+gem 'coveralls', require: false
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 

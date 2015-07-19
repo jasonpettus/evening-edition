@@ -1,0 +1,59 @@
+New York Times: Front Page
+http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml
+
+BBC: Top Stories
+http://feeds.bbci.co.uk/news/rss.xml
+
+CNN: Top Stories
+http://rss.cnn.com/rss/cnn_topstories.rss
+
+Al Jazeera: All Articles
+http://america.aljazeera.com/content/ajam/articles.rss
+
+Los Angeles Times: All Articles
+http://www.latimes.com/rss2.0.xml
+
+Chicago Tribune: Front Page
+http://www.chicagotribune.com/rss2.0.xml
+
+TIME
+http://newsfeed.time.com/feed/&t1=
+
+Newsweek
+http://www.newsweek.com/rss
+
+The Economist
+http://www.economist.com/rss/the_world_this_week_rss.xml
+
+Wall Street Journal
+http://www.wsj.com/xml/rss/3_7085.xml
+
+The Daily Beast
+http://feeds.feedburner.com/thedailybeast/articles
+
+The Huffington Post
+http://www.huffingtonpost.com/feeds/index.xml
+
+Sports Illustrated
+http://www.si.com/rss/si_topstories.rss
+
+WIRED
+http://feeds.wired.com/wired/index
+
+Chicagoist
+http://chicagoist.com/index.xml
+
+Politico
+http://www.politico.com/rss/magazine.xml
+
+The Week
+http://theweek.com/rss.xml
+
+Council on Foreign Relations
+http://feeds.cfr.org/cfr_main
+
+Boing Boing
+http://boingboing.net/feed
+
+AV Club
+http://www.avclub.com/feed/rss/
