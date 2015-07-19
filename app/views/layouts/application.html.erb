@@ -13,9 +13,6 @@
 <body>
 
 <%= render "application/masthead" %>
-  <%= render partial: "application/drawerbanner", locals: {page_name: @page_name} %>
-    <main class="mdl-layout__content">
-      <div class="page-content mdl-color--blue-grey">
         <%= yield %>
       </div>
     </main>

@@ -1,10 +1,15 @@
-<% if session['login_error'] %>
-  <p><%= Incorrect Email or Password %></p>
-<% end %>
+<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name} %>
+<%= render "application/main" %>
 
-<%= form_for @user do |f| %>
-  <%= f.text_field :email, placeholder: 'email' %>
-  <%= f.text_field :password, placeholder: 'password' %>
-  <%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %>
-  <%= f.submit value: 'Create Account' %>
-<% end %>
+<div class="form_box">
+  <% if session['login_error'] %>
+    <p><%= Incorrect Email or Password %></p>
+  <% end %>
+
+  <%= form_for @user do |f| %>
+    <%= f.text_field :email, placeholder: 'email' %>
+    <%= f.text_field :password, placeholder: 'password' %>
+    <%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %>
+    <%= f.submit value: 'Create Account' %>
+  <% end %>
+
