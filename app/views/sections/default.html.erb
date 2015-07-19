@@ -1,9 +1,9 @@
-<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name} %>
+<%= render partial: "application/bannernodrawer", locals: {page_name: @page_name} %>
 <%= render "application/main" %>
 
 <div class="mdl-grid">
   <% @stories.each do |story| %>
-    <% case article.column_class %>
+    <% case story["size"] %>
       <% when "splash" %>
         <% render "application/article_splash" %>
       <% when "big" %>
