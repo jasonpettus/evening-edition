@@ -11,6 +11,7 @@ class SectionsController < ApplicationController
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.stories
+      @page_name = "Top Stories"
       render 'default'
     end
 	end
