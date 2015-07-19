@@ -1,0 +1,190 @@
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request: h5bp.com/r
+   ========================================================================== */
+@media print {
+  *, *:before, *:after {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster: h5bp.com/s */
+    box-shadow: none !important;
+    text-shadow: none !important; }
+  a, a:visited {
+    text-decoration: underline; }
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+  /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+  a[href^="#"]:after, a[href^="javascript:"]:after {
+    content: ""; }
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+  thead {
+    display: table-header-group;
+    /* h5bp.com/t */ }
+  tr, img {
+    page-break-inside: avoid; }
+  img {
+    max-width: 100% !important; }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3; }
+  h2, h3 {
+    page-break-after: avoid; }
+}
+
+@media screen and (min-width: 760px) {
+  .mdl-mega-footer--left-section {
+    float: left; }
+  .mdl-mega-footer--right-section {
+    float: right; }
+  .mdl-mega-footer--right-section a {
+    display: inline-block;
+    margin-left: 16px;
+    line-height: 36px;
+    vertical-align: middle; } }
+
+@media screen and (min-width: 760px) {
+  .mdl-mega-footer--drop-down-section {
+    width: 33%; }
+  .mdl-mega-footer--drop-down-section:nth-child(1), .mdl-mega-footer--drop-down-section:nth-child(2) {
+    float: left; }
+  .mdl-mega-footer--drop-down-section:nth-child(3) {
+    float: right; }
+    .mdl-mega-footer--drop-down-section:nth-child(3):after {
+      clear: right; }
+  .mdl-mega-footer--drop-down-section:nth-child(4) {
+    clear: right;
+    float: right; }
+  .mdl-mega-footer--middle-section:after {
+    content: '';
+    display: block;
+    clear: both; }
+  .mdl-mega-footer--bottom-section {
+    padding-top: 0; } }
+
+@media screen and (min-width: 1024px) {
+  .mdl-mega-footer--drop-down-section, .mdl-mega-footer--drop-down-section:nth-child(3), .mdl-mega-footer--drop-down-section:nth-child(4) {
+    width: 24%;
+    float: left; } }
+
+@media screen and (min-width: 760px) {
+  .mdl-mega-footer--heading-checkbox {
+    display: none; }
+    .mdl-mega-footer--heading-checkbox ~ .mdl-mega-footer--heading:after {
+      background-image: none; }
+  .mdl-mega-footer--heading-checkbox:checked ~ ul {
+    display: block; }
+  .mdl-mega-footer--heading-checkbox:checked ~ .mdl-mega-footer--heading:after {
+    content: ''; } }
+
+@media screen and (min-width: 760px) {
+  .mdl-logo {
+    float: left;
+    margin-bottom: 0;
+    margin-right: 16px; } }
+
+@media screen and (min-width: 760px) {
+  .mdl-mini-footer--link-list li {
+    line-height: 36px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__drawer > .mdl-layout-title {
+    line-height: 56px;
+    padding-left: 16px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+    padding: 16px 16px; } }
+
+@media screen and (min-width: 851px) {
+.mdl-layout--fixed-drawer > .mdl-layout__drawer {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0); } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header .mdl-layout__drawer-button {
+    margin: 4px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__drawer-button {
+    margin: 4px;
+    color: rgba(0, 0, 0, 0.5); } }
+
+@media screen and (min-width: 851px) {
+  .mdl-layout--fixed-drawer > .mdl-layout__drawer-button {
+    display: none; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header {
+    min-height: 56px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header > .mdl-layout-icon {
+    left: 16px;
+    top: 12px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header.is-compact {
+    max-height: 56px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header.is-compact.has-tabs {
+    min-height: 104px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header {
+    display: none; }
+  .mdl-layout--fixed-header > .mdl-layout__header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header-row {
+    height: 56px;
+    padding: 0 16px 0 72px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header-row .mdl-navigation {
+    height: 56px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header-row .mdl-navigation__link {
+    line-height: 56px;
+    padding: 0 16px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout--fixed-drawer > .mdl-layout__content {
+    margin-left: 0; }
+  .mdl-layout__container.has-scrolling-header .mdl-layout__content {
+    overflow-y: auto;
+    overflow-x: hidden; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__tab-bar {
+    width: calc(100% -
+        60px);
+    padding: 0 0 0 60px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__tab-bar-button {
+    display: none;
+    width: 60px; } }
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__tab {
+    padding: 0 12px 0 12px; } }
+
