@@ -13,8 +13,7 @@
       <% if user_logged_in? %>
         Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path, method: :delete %>
       <% else %>
-        Members receive personalized subscriptions,
-        personalized sections, and personalized delivery times.
+        Members receive personalized subscriptions, sections, and delivery times.
         <%= link_to "Create a free account now.", users_new_path %><br>
         <%= render 'login' %>
       <% end %>
