@@ -1,1 +1,17 @@
-default.html.erb
+<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name} %>
+<%= render "application/main" %>
+
+<div class="mdl-grid">
+  <% @articles.each do |article| %>
+    <% case article.column_class %>
+      <% when "splash" %>
+        <% render "application/article_splash" %>
+      <% when "big" %>
+        <% render "application/article_big" %>
+      <% when "medium" %>
+        <% render "application/article_medium" %>
+      <% when "small" %>
+        <% render "application/article_small" %>
+    <% end %>
+  <% end %>
+</div>

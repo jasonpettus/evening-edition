@@ -1,0 +1,16 @@
+<div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--4-col">
+  <button id="#{article.id}" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
+    <i class="material-icons">more_vert</i>
+  </button>
+
+  <span class="mdl-typography--title"><%= link_to article.title, article.url %></span><br>
+
+  <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= article.subscription.name %></span>
+
+  <ul for="#{article.id}" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
+    <p class="mdl-menu__item">Related:</p>
+    <% @article.cluster.each do |related| %>
+      <li class="mdl-menu__item"><%= link_to related.title, related.url %> <span class="mdl-color-text--grey-500">--<%= article.subscription.name %></span></li>
+    <% end %>
+  </ul>
+</div>

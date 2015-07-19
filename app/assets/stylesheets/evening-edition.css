@@ -42,7 +42,6 @@ p {
 }
 
 .image {
-  background-image: url("../images/obama.jpg");
   height: 500px;
   background-size: cover;
   background-repeat: no-repeat;
