@@ -29,6 +29,12 @@ gem 'autoprefixer-rails'
 
 gem 'nokogiri'
 gem 'fastimage'
+<<<<<<< Updated upstream
+=======
+gem 'image_info'
+gem 'open_uri_redirections'
+gem 'mechanize'
+>>>>>>> Stashed changes
 
 gem 'text'
 

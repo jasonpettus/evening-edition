@@ -1,7 +1,8 @@
 class SectionsController < ApplicationController
 
-  before_action :authorize_user_logged_in, except: :index
+  before_action :authorize_user_logged_in, except: :show
 
+<<<<<<< Updated upstream
 	def index
     redirect_to(:show, id: user_default_section.id) if user_logged_in
 
@@ -17,6 +18,20 @@ class SectionsController < ApplicationController
 		@stories = @section.stories
 	end
 
+=======
+	def show
+    if user_logged_in?
+  		@active_section = Section.find(params[:id])
+      @sections = current_user.sections
+  		@stories = @section.stories
+    else
+      @section = Section.find_by(title: 'default')
+      @stories = @section.stories
+      render 'default'
+    end
+	end
+
+>>>>>>> Stashed changes
   def edit
     @section = Section.find(params[:id])
   end
