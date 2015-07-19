@@ -1,3 +1,6 @@
+<%= render partial: "application/drawerbanner", locals: {page_name: @page_name} %>
+<%= render "application/main" %>
+
 <div class="form_box">
   <% if @user.errors.any? %>
     <ul>
