@@ -7,9 +7,9 @@
   <% end %>
 
   <%= form_for @user do |f| %>
-    <%= f.text_field :email, placeholder: 'email' %>
-    <%= f.text_field :password, placeholder: 'password' %>
-    <%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %>
-    <%= f.submit value: 'Create Account' %>
+    <p><%= f.text_field :email, placeholder: 'email' %></p>
+    <p><%= f.text_field :password, placeholder: 'password' %></p>
+    <p><%= f.text_field "password_confirmation", placeholder: 'Password Confirmation' %></p>
+    <p><%= f.submit value: 'Create Account' %></p>
   <% end %>
 
