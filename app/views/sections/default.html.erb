@@ -2,7 +2,7 @@
 <%= render "application/main" %>
 
 <div class="mdl-grid">
-  <% @articles.each do |article| %>
+  <% @stories.each do |story| %>
     <% case article.column_class %>
       <% when "splash" %>
         <% render "application/article_splash" %>
