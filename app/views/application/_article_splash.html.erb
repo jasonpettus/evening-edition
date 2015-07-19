@@ -1,0 +1,18 @@
+<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone round image" style="background-image: url("#{article.img_link}");">
+  <div class="photo-overlay">
+    <button id="#{article.id}" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
+      <i class="material-icons">more_vert</i>
+    </button>
+
+    <span class="mdl-typography--display-2 mdl-color-text--white"><%= link_to article.title, article.url %></span><br>
+    <span class="mdl-typography--display-1 mdl-color-text--white"><%= article.summary %></span><br>
+    <span class="mdl-typography--headline mdl-color-text--grey-500"><%= article.subscription.name %></span>
+
+    <ul for="#{article.id}" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
+      <p class="mdl-menu__item">Related:</p>
+      <% @article.cluster.each do |related| %>
+        <li class="mdl-menu__item"><%= link_to related.title, related.url %> <span class="mdl-color-text--grey-500">--<%= article.subscription.name %></span></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
