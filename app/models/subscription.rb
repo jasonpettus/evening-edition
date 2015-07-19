@@ -35,21 +35,22 @@ class Subscription < ActiveRecord::Base
 			response = Net::HTTP.get_response(URI.parse(URI.encode(article.url)))
 			puts ">" * 50 + response.code
 			begin
-			if response.code.match(/30\d/)
-				article_url = response.header['location']
-				# article_url = ""
-			else
-				article_url = article.url
-			end
-
-			rescue ArgumentError
-			agent = Mechanize.new
+				if response.code.match(/30\d/)
+					article_url = response.header['location']
+					# article_url = ""
+				else
+					article_url = article.url
+				end
+				agent =  Mechanize.new
 				page = agent.get(article_url)
 				page.images.each do |img|
 						p ">" * 25
 						p img
 						p ">" * 25
 					img_src = img.src
+						p "<" * 25
+					p img_src
+						p "<" * 25
 					if img_src
 						all_img_urls << img_src
 						img = ImageInfo.from(img_src)[0] # switched to this from FastImage to better handle 64bit (FILENAME too long)
@@ -62,7 +63,10 @@ class Subscription < ActiveRecord::Base
 				img_src = "http://google.com"
 				all_img_urls << img_src
 				img_areas << 0
-			end
+				end
+				rescue ArgumentError
+						all_img_urls << "NONE"
+						img_areas << 0
 				end
 
 			largest = img_areas.index(img_areas.max)

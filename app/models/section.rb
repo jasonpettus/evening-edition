@@ -21,12 +21,9 @@ class Section < ActiveRecord::Base
 
   private
   def cluster_articles(articles)
-    p articles.length
     articles = articles.map { |x| x }
     clusters = []
     while articles.length > 0
-      p '---------'
-      p articles.length
       n = 0
       clusters << []
       while n < articles.length
@@ -43,7 +40,18 @@ class Section < ActiveRecord::Base
   def stories_to_hash(cluster)
     cluster.map do |story_cluster|
       # sort story_cluster so preferred stories are first
-      { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => 'medium' }
+      { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
+    end
+  end
+
+  def story_importance(story_cluster)
+    case story_cluster.length
+    when 1
+      'medium'
+    when 2..3
+      'big'
+    else
+      'splash'
     end
   end
 end
