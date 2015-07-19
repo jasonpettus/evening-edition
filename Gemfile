@@ -29,6 +29,7 @@ gem 'autoprefixer-rails'
 
 gem 'nokogiri'
 gem 'fastimage'
+gem 'image_info'
 gem 'open_uri_redirections'
 gem 'mechanize'
 
