@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @page_name = "Create Account"
   end
 
   def show

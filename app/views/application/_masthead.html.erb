@@ -11,11 +11,12 @@
   <div class="login mdl-color--orange-900">
     <span class="mdl-typography--caption">
       <% if user_logged_in? %>
-         <%= link_to "Log out", users_logout_path %>
+        Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path %>
       <% else %>
         Members receive personalized subscriptions,
-        personalized sections, and personalized delivery times.<br>
-        <%= link_to "Create a free account", users_new_path %> or <%= link_to "log in", users_login_path %> now.
+        personalized sections, and personalized delivery times.
+        <%= link_to "Create a free account now.", users_new_path %><br>
+        <%= render 'login' %>
       <% end %>
     </span>
   </div>
