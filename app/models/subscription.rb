@@ -86,7 +86,7 @@ class Subscription < ActiveRecord::Base
 		def strip_ads
 			self.articles.each do |article|
 				unless article.summary.nil?
-						stripped = article.summary.gsub(/<img.*?>/,"").gsub(/<a.*?<\/a>/,"").gsub(/<br.*?>/,"")
+						stripped = article.summary.gsub(/<img.*?>/,"").gsub(/<a.*?<\/a>/,"").gsub(/<br.*?>/,"").gsub(/<div.*?<\/div>/,"").gsub(/<p.*?<\/p>/,"")
 						article.summary = stripped
 				end
 			end
