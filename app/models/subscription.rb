@@ -40,10 +40,20 @@ class Subscription < ActiveRecord::Base
 
 			agent = Mechanize.new
 			page = agent.get(article_url).images.each do |img|
-				all_img_urls << img.src
-				dimensions = FastImage.size(img.src)
-				dimensions ? area = dimensions.reduce(1) { |length, width| length * width } : area = 0
-				img_areas << area
+					p ">" * 25 
+					p img
+					p ">" * 25 
+				img_src = img.src 
+				if img_src 
+					all_img_urls << img_src 
+					img = ImageInfo.from(img_src)[0]
+					img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
+					img_areas << area
+				else
+					all_img_urls << "NONE"
+					img_areas << 0
+				end
+				
 			end
 
 			largest = img_areas.index(img_areas.max)
