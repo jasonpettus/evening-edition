@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
 	belongs_to	:subscription
+  SIMILARITY_WEIGHT = 0.4
 
 	def set_article=(article)
 		self.title = article.title
@@ -11,6 +12,6 @@ class Article < ActiveRecord::Base
 	end
 
   def is_similar_to?(article)
-    Text::WhiteSimilarity.new.similarity(title, article.title) >= 0.4
+    Text::WhiteSimilarity.new.similarity(title, article.title) >= SIMILARITY_WEIGHT
   end
 end

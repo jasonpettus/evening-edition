@@ -11,6 +11,7 @@ class SectionsController < ApplicationController
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.stories
+      @stories.each { |story| p story if story['other_sources'] != [] }
       @page_name = "Top Stories"
       render 'default'
     end
