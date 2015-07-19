@@ -1,1 +1,1 @@
-# evening-edition
+# Evening-Edition ![travis-ci](https://travis-ci.org/jasonpettus/evening-edition.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/jasonpettus/evening-edition/badge.svg?branch=master&service=github)](https://coveralls.io/github/jasonpettus/evening-edition?branch=master)

@@ -22,17 +22,17 @@ class Subscription < ActiveRecord::Base
 		@entries.map! do |entry|
 			Article.new(set_article: entry)
 		end
-		@entries.each { |entry| self.articles << entry } 
+		@entries.each { |entry| self.articles << entry }
 	end
 
 	def get_feature_imgs(articles) # => Takes 13s for 20 articles from "http://rss.nytimes.com/services/xml/rss/nyt/Science.xml" feed
 		feature_imgs = [] # => holds feature img srcs
-		articles.map do |article| 
+		articles.map do |article|
 			all_img_urls = [] # => holds img srcs
 			img_areas = [] # => holds dimensions
 			response = Net::HTTP.get_response(URI.parse(article.url))
 			puts ">" * 50 + response.code
-			if response.code.match(/30\d/) 
+			if response.code.match(/30\d/)
 				article_url = response.header['location']
 			else
 				article_url = article.url
@@ -40,10 +40,20 @@ class Subscription < ActiveRecord::Base
 
 			agent = Mechanize.new
 			page = agent.get(article_url).images.each do |img|
-				all_img_urls << img.src
-				dimensions = FastImage.size(img.src)
-				dimensions ? area = dimensions.reduce(1) { |length, width| length * width } : area = 0
-				img_areas << area
+					p ">" * 25 
+					p img
+					p ">" * 25 
+				img_src = img.src 
+				if img_src 
+					all_img_urls << img_src 
+					img = ImageInfo.from(img_src)[0]
+					img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
+					img_areas << area
+				else
+					all_img_urls << "NONE"
+					img_areas << 0
+				end
+				
 			end
 
 			largest = img_areas.index(img_areas.max)
@@ -56,17 +66,16 @@ class Subscription < ActiveRecord::Base
 	private
 		def save_articles
 			strip_ads
-			get_feature_imgs(self.articles) 
+			get_feature_imgs(self.articles)
 			self.articles.each { |article| article.save }
 		end
 
 		def strip_ads
 			self.articles.each do |article|
-				p article.summary.nil?
 				unless article.summary.nil?
-						no_images = article.summary.gsub!(/<img.*?>/,"")
-						no_links = no_images.gsub!(/<a.*?<\/a>/,"")
-						no_links.gsub!(/<br.*?>/,"")
+					article.summary.gsub!(/<img.*?>/,"")
+					article.summary.gsub!(/<a.*?<\/a>/,"")
+					article.summary.gsub!(/<br.*?>/,"")
 				end
 			end
 		end
