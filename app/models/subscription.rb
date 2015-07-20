@@ -11,16 +11,6 @@ class Subscription < ActiveRecord::Base
 	has_one		:user, through: :section
 	belongs_to 	:section
 
-	def get_articles
-		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
-		self.url = self.feed.url
-		@entries = self.feed.entries
-		@entries.map! do |entry|
-			Article.new(set_article: entry)
-		end
-		@entries.each { |entry| self.articles << entry }
-	end
-
 	def get_feature_imgs(articles) # => Takes 13s for 20 articles from "http://rss.nytimes.com/services/xml/rss/nyt/Science.xml" feed
 		feature_imgs = [] # => holds feature img srcs
 		articles.map do |article|
@@ -73,12 +63,6 @@ class Subscription < ActiveRecord::Base
 			article.img_link = feature_imgs[-1]
 		end
 		return feature_imgs
-	end
-
-	def save_articles
-		strip_ads
-		get_feature_imgs(self.articles)
-		self.articles.each { |article| article.save }
 	end
 
 
