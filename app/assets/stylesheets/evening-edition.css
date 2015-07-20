@@ -125,3 +125,22 @@ p {
   font-family: 'Lusitana', serif;
   font-size: 12px;
 }
+
+.center {
+  text-align: center;
+  margin: auto;
+}
+
+.section_box {
+  text-align: center;
+  margin: auto;
+}
+
+.section_box input {
+  font-family: 'Lusitana', serif;
+  font-size: 1.25em;
+}
+
+.inline {
+  display: inline;
+}
