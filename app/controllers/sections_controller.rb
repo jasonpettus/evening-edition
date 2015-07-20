@@ -47,7 +47,7 @@ class SectionsController < ApplicationController
   def update
     @section = Section.find(params[:id])
     if @section.update_attributes(section_params)
-      redirect_to :back
+      redirect_to sections_url
     else
       render :edit
     end
