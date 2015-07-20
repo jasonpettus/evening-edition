@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20150720182645) do
     t.text     "summary"
     t.string   "url"
     t.string   "last_modified"
-    t.integer  "subscription_id"
+    t.integer  "feed_id"
     t.string   "img_link"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150720182645) do
 
   create_table "feeds", force: :cascade do |t|
     t.string   "feed_url"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,8 +58,7 @@ ActiveRecord::Schema.define(version: 20150720182645) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "feed_id"
-    t.integer  "Section_id"
-    t.string   "url"
+    t.integer  "section_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

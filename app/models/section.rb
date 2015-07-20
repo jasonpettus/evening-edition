@@ -1,16 +1,25 @@
 class Section < ActiveRecord::Base
-	has_many 	:subscriptions, dependent: :destroy
 	belongs_to	:user
+  has_many  :subscriptions, dependent: :destroy
+  has_many :stories, through: :user
   has_many :articles, through: :subscriptions
 
 	validates	:title, uniqueness: { scope: :user }
 
 
-  def stories
-    stories = subscriptions.map { |subscription| subscription.recent_articles }
-    story_clusters = cluster_articles(stories.flatten)
-    stories_to_hash(story_clusters)
+
+  def cluster_similar_stories
+    todays_articles = articles.where("created_at > now() - interval '1 day'")
+    clusters = cluster_articles(todays_stories)
+    todays_stories = clusters_to_stories(clusters)
+    todays_stories.each {|story| story.fetch_img if story.size == 'big' || story.size == 'splash' }
   end
+
+  # def stories
+  #   stories = subscriptions.map { |subscription| subscription.recent_articles }
+  #   story_clusters = cluster_articles(stories.flatten)
+  #   stories_to_hash(story_clusters)
+  # end
 
   private
   def cluster_articles(articles)
@@ -30,11 +39,12 @@ class Section < ActiveRecord::Base
     clusters
   end
 
-  def stories_to_hash(cluster)
-    cluster = cluster.map do |story_cluster|
+  def clusters_to_stories(clusters)
+    stories = cluster.map do |story_cluster|
       # sort story_cluster so preferred stories are first
-      { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
+      stories.build(top_story: story_cluster[0], articles: story_cluster, size: 'medium')
     end
+
     # Split stories into groups with images and without images
     # build an array of size groups out of those
     # shuffle then flatten?

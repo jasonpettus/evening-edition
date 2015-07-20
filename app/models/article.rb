@@ -1,5 +1,8 @@
 class Article < ActiveRecord::Base
 	belongs_to	:subscription
+  has_many :articles_stories
+  has_many :stories, through: :articles_stories
+
   SIMILARITY_WEIGHT = 0.40
   LIST_OF_WORDS_TO_IGNORE = ['a','an','the','to','and','of','be', 'in', 'at', 'this', 'that']
 
@@ -17,7 +20,6 @@ class Article < ActiveRecord::Base
   def is_similar_to?(article)
     subbed_title = remove_ignored_words(title)
     subbed_article_title = remove_ignored_words(article.title)
-
     # Text::WhiteSimilarity.new.similarity(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
     white_similarity_on_words(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
   end
@@ -28,18 +30,16 @@ class Article < ActiveRecord::Base
 
   def strip_ads
     decoder =  HTMLEntities.new
-    self.articles.each do |article|
-      unless article.summary.nil?
-          stripped_summary = article.summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
-          decoded_summary = decoder.decode(stripped_summary)
-          article.summary = decoded_summary
-      end
-      
-      unless article.title.nil?
-          stripped_title = article.title.gsub(/<.*?<\/.*?>/m,"")
-          decoded_title = decoder.decode(stripped_title)
-          article.title = decoded_title
-      end
+    unless summary.nil?
+      stripped_summary = summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
+      decoded_summary = decoder.decode(stripped_summary)
+      self.summary = decoded_summary
+    end
+
+    unless title.nil?
+      stripped_title = title.gsub(/<.*?<\/.*?>/m,"")
+      decoded_title = decoder.decode(stripped_title)
+      self.title = decoded_title
     end
   end
 
