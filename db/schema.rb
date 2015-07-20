@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718182019) do
+ActiveRecord::Schema.define(version: 20150720182645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,9 +22,22 @@ ActiveRecord::Schema.define(version: 20150718182019) do
     t.string   "url"
     t.string   "last_modified"
     t.integer  "subscription_id"
+    t.string   "img_link"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "img_link"
+  end
+
+  create_table "articles_stories", force: :cascade do |t|
+    t.integer  "article_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feeds", force: :cascade do |t|
+    t.string   "feed_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -34,18 +47,26 @@ ActiveRecord::Schema.define(version: 20150718182019) do
     t.datetime "updated_at"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.string   "feed_url"
-    t.string   "url"
-    t.integer  "section_id"
+  create_table "stories", force: :cascade do |t|
+    t.string   "size"
+    t.integer  "user_id"
+    t.integer  "preferred_story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "feed_id"
+    t.integer  "Section_id"
+    t.string   "url"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
-    t.string   "password_digest"
+    t.text     "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

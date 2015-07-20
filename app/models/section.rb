@@ -35,16 +35,17 @@ class Section < ActiveRecord::Base
       # sort story_cluster so preferred stories are first
       { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
     end
-    cluster.each do |story|
-      if story['preferred'].has_image?
-        story['size'] = 'splash'
-        break
-      end
-    end
-    cluster
+    # Split stories into groups with images and without images
+    # build an array of size groups out of those
+    # shuffle then flatten?
+
+    # So we kind of have a chicken//egg scenario here. Being able to grab images informs the size of stories
+    # but at the same time grabbing images takes really long so being able to figure out the sizes of stories
+    # first would speed that up
+
   end
 
-  def story_importance(story_cluster)
+  def random_story_importance(story_cluster)
     if story_cluster[0].has_image?
       %w(big medium splash small).sample
     else
