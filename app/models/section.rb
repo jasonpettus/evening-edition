@@ -38,20 +38,27 @@ class Section < ActiveRecord::Base
   end
 
   def stories_to_hash(cluster)
-    cluster.map do |story_cluster|
+    cluster = cluster.map do |story_cluster|
       # sort story_cluster so preferred stories are first
       { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
     end
+    cluster.each do |story|
+      if story['preferred'].img_link && story['preferred'].img_link != 'NONE'
+        story['size'] = 'splash'
+        break
+      end
+    end
+    cluster
   end
 
   def story_importance(story_cluster)
     case story_cluster.length
     when 1
-      'splash'
+      'medium'
     when 2..3
-      'splash'
+      'big'
     else
-      'splash'
+      'small'
     end
   end
 end
