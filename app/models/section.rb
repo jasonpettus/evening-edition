@@ -36,7 +36,7 @@ class Section < ActiveRecord::Base
       { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
     end
     cluster.each do |story|
-      if story['preferred'].img_link && story['preferred'].img_link != 'NONE'
+      if story['preferred'].has_image?
         story['size'] = 'splash'
         break
       end
@@ -45,7 +45,7 @@ class Section < ActiveRecord::Base
   end
 
   def story_importance(story_cluster)
-    if story_cluster[0].img_link && story_cluster[0].img_link != 'NONE'
+    if story_cluster[0].has_image?
       %w(big medium splash small).sample
     else
       %w(medium small).sample
