@@ -16,6 +16,7 @@ class Article < ActiveRecord::Base
     subbed_title = remove_ignored_words(title)
     subbed_article_title = remove_ignored_words(article.title)
 
+    # Text::WhiteSimilarity.new.similarity(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
     white_similarity_on_words(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
   end
 
@@ -41,13 +42,13 @@ class Article < ActiveRecord::Base
           pairs2.delete_at(index)
         end
       end
-      p union
-      p intersection
+      # p union
+      # p intersection
       (2.0 * intersection) / union
     end
 
     def str_to_words(str)
-      p 'Hello'
+      # p 'Hello'
       str.gsub(/[\,\.\;\:\'\"\!\@\#\$\%\^\&\*\(\)\_\+]/, '').split(' ')
     end
 end
