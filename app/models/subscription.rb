@@ -11,12 +11,12 @@ class Subscription < ActiveRecord::Base
 	has_one		:user, through: :section
 	belongs_to 	:section
 
-	def set_feed
-		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
-		self.url = self.feed.url
-	end
+	# def set_feed
+	# end
 
 	def get_articles
+		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
+		self.url = self.feed.url
 		@entries = self.feed.entries
 		@entries.map! do |entry|
 			Article.new(set_article: entry)
@@ -41,15 +41,16 @@ class Subscription < ActiveRecord::Base
 				agent =  Mechanize.new
 				page = agent.get(URI.encode(article_url))
 				page.images.each do |img|
-						p ">" * 25
-						p img
-						p ">" * 25
+					p ">" * 25
+					p img
+					p ">" * 25
 					img_src = img.src
-						p "<" * 25
+					p "<" * 25
 					p img_src
-						p "<" * 25
+					p "<" * 25
 					if img_src && img_src.match(/http:\/\//)
 						all_img_urls << img_src
+						# NEED TO USE FastImage
 						img = ImageInfo.from(img_src)[0] # switched to this from FastImage to better handle 64bit (FILENAME too long)
 						img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
 						if area > 5000
@@ -87,11 +88,20 @@ class Subscription < ActiveRecord::Base
 	private
 
 		def strip_ads
+			decoder =  HTMLEntities.new
 			self.articles.each do |article|
 				unless article.summary.nil?
-						stripped = article.summary.gsub(/<img.*?>/,"").gsub(/<a.*?<\/a>/,"").gsub(/<br.*?>/,"").gsub(/<div.*?<\/div>/,"").gsub(/<p.*?<\/p>/,"")
-						article.summary = stripped
+						stripped_summary = article.summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
+						decoded_summary = decoder.decode(stripped_summary)
+						article.summary = decoded_summary
+				end
+				
+				unless article.title.nil?
+						stripped_title = article.title.gsub(/<.*?<\/.*?>/m,"")
+						decoded_title = decoder.decode(stripped_title)
+						article.title = decoded_title
 				end
 			end
 		end
+
 end
