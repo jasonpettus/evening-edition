@@ -1,0 +1,6 @@
+<ul for="<%= story['preferred'].id %>" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
+  <p class="mdl-menu__item">Related:</p>
+  <% story["other_sources"].each do |related| %>
+    <li class="mdl-menu__item"><%= link_to related.title, related.url %> <span class="mdl-color-text--grey-500">--<%= related.subscription.name %></span></li>
+  <% end %>
+</ul>
