@@ -1,19 +1,19 @@
-New York Times: Front Page
+New York Times
 http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml
 
-BBC: Top Stories
+BBC
 http://feeds.bbci.co.uk/news/rss.xml
 
-CNN: Top Stories
+CNN
 http://rss.cnn.com/rss/cnn_topstories.rss
 
-Al Jazeera: All Articles
+Al Jazeera
 http://america.aljazeera.com/content/ajam/articles.rss
 
-Los Angeles Times: All Articles
+Los Angeles Times
 http://www.latimes.com/rss2.0.xml
 
-Chicago Tribune: Front Page
+Chicago Tribune
 http://www.chicagotribune.com/rss2.0.xml
 
 TIME
