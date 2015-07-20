@@ -10,12 +10,9 @@ class Subscription < ActiveRecord::Base
 	has_many	:recent_articles, -> { order("created_at DESC").limit(5) }, class_name: 'Article'
 	has_one		:user, through: :section
 	belongs_to 	:section
-	before_save	:get_articles
-	after_save	:save_articles
 
-	def set_feed=(rss)
-		@feed = Feedjira::Feed.fetch_and_parse(rss) #--***
-		self.feed_url = rss
+	def set_feed
+		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
 		self.url = self.feed.url
 	end
 
@@ -42,7 +39,7 @@ class Subscription < ActiveRecord::Base
 					article_url = article.url
 				end
 				agent =  Mechanize.new
-				page = agent.get(article_url)
+				page = agent.get(URI.encode(article_url))
 				page.images.each do |img|
 						p ">" * 25
 						p img
@@ -51,37 +48,43 @@ class Subscription < ActiveRecord::Base
 						p "<" * 25
 					p img_src
 						p "<" * 25
-					if img_src
+					if img_src && img_src.match(/http:\/\//)
 						all_img_urls << img_src
 						img = ImageInfo.from(img_src)[0] # switched to this from FastImage to better handle 64bit (FILENAME too long)
 						img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
-						img_areas << area
+						if area > 5000
+							img_areas << area
+						else 
+							img_areas << 0
+						end
 					else
-						all_img_urls << "NONE"
+						all_img_urls << nil
 						img_areas << 0
 					end
 				img_src = "http://google.com"
 				all_img_urls << img_src
 				img_areas << 0
 				end
-				rescue ArgumentError
+				rescue ArgumentError, Errno::ETIMEDOUT, Mechanize::ResponseCodeError, Net::HTTPNotFound
 						all_img_urls << nil
 						img_areas << 0
 				end
 
 			largest = img_areas.index(img_areas.max)
-			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << "NONE"
+			largest ? feature_imgs << all_img_urls[largest] : feature_imgs << nil
 			article.img_link = feature_imgs[-1]
 		end
 		return feature_imgs
 	end
 
+	def save_articles
+		strip_ads
+		get_feature_imgs(self.articles)
+		self.articles.each { |article| article.save }
+	end
+
+
 	private
-		def save_articles
-			strip_ads
-			get_feature_imgs(self.articles)
-			self.articles.each { |article| article.save }
-		end
 
 		def strip_ads
 			self.articles.each do |article|
