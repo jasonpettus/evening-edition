@@ -9,11 +9,5 @@
 default_section = Section.create!(title: 'Default')
 
 File.foreach('db/defaultfeeds.txt').each_slice(3) do |feed|
-  p '-'*50
-  print "\n\n\n\n\n"
-  p feed[0].chomp
-  p feed[1].chomp
-  print "\n\n\n\n\n"
-  p '-'*50
-  default_section.subscriptions.create(name: feed[0].chomp, set_feed: feed[1].chomp)
+  default_section.subscriptions.create(name: feed[0].chomp,)
 end
