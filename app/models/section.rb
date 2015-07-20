@@ -48,6 +48,7 @@ class Section < ActiveRecord::Base
         break
       end
     end
+    cluster
   end
 
   def story_importance(story_cluster)
