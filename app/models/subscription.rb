@@ -14,6 +14,10 @@ class Subscription < ActiveRecord::Base
 	# def set_feed
 	# end
 
+	def assign_feed(feed_url)
+		self.feed = Feed.find_by(feed_url: feed_url) || Feed.create(feed_url: feed_url)
+	end
+
 	def get_articles
 		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
 		self.url = self.feed.url
@@ -55,7 +59,7 @@ class Subscription < ActiveRecord::Base
 						img ? area = img.size.reduce(1) { |length, width| length * width } : area = 0
 						if area > 5000
 							img_areas << area
-						else 
+						else
 							img_areas << 0
 						end
 					else
@@ -95,7 +99,7 @@ class Subscription < ActiveRecord::Base
 						decoded_summary = decoder.decode(stripped_summary)
 						article.summary = decoded_summary
 				end
-				
+
 				unless article.title.nil?
 						stripped_title = article.title.gsub(/<.*?<\/.*?>/m,"")
 						decoded_title = decoder.decode(stripped_title)
