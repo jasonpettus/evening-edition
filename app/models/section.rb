@@ -7,16 +7,9 @@ class Section < ActiveRecord::Base
 
 
   def stories
-    # Get all the articles
-    # Check article similarity with other articles
-    # Group by similarity
     stories = subscriptions.map { |subscription| subscription.recent_articles }
     story_clusters = cluster_articles(stories.flatten)
     stories_to_hash(story_clusters)
-    # So we want to format things so the most important stories are first
-    # We also want to point out the preferred article, so I guess we order the
-    # clusters array with the longest length first, and order each cluster alphabetically
-    # except with the preferred feeds first.
   end
 
   private
@@ -43,7 +36,7 @@ class Section < ActiveRecord::Base
       { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
     end
     cluster.each do |story|
-      if story['preferred'].img_link && story['preferred'].img_link != 'NONE'
+      if story['preferred'].has_image?
         story['size'] = 'splash'
         break
       end
@@ -52,13 +45,18 @@ class Section < ActiveRecord::Base
   end
 
   def story_importance(story_cluster)
-    case story_cluster.length
-    when 1
-      'medium'
-    when 2..3
-      'big'
+    if story_cluster[0].has_image?
+      %w(big medium splash small).sample
     else
-      'small'
+      %w(medium small).sample
     end
+    # case story_cluster.length
+    # when 1
+    #   'medium'
+    # when 2..3
+    #   'big'
+    # else
+    #   'splash'
+    # end
   end
 end
