@@ -2,7 +2,6 @@ class SectionsController < ApplicationController
 
   before_action :authorize_user_logged_in, except: :show
 
-
 	def show
     if user_logged_in?
     	@active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
@@ -17,23 +16,7 @@ class SectionsController < ApplicationController
     end
 	end
 
-  def edit
-    @section = Section.find(params[:id])
-  end
-
-  def update
-    @section = Section.find(params[:id])
-    if @section.update_attibutes(section_params)
-      redirect_to :show, id: @section.id
-    else
-      render :edit
-    end
-  end
-
-  def delete
-    Section.find(params[:id]).destroy
-    redirect_to :show, id: user_default_section.id
-  end
+  #literally everything after here is subject to change based on the views
 
   def new
     @section = Section.new
@@ -42,10 +25,28 @@ class SectionsController < ApplicationController
   def create
     @section = current_user.sections.build(section_params)
     if @section.save
-      redirect_to :show, id: @section.id
+      redirect_to "sections/#{@section.id}/subscriptions"
     else
       render :new
     end
+  end
+
+  def edit
+    @section = Section.find(params[:id])
+  end
+
+  def update
+    @section = Section.find(params[:id])
+    if @section.update_attibutes(section_params)
+      redirect_to @section
+    else
+      render :edit
+    end
+  end
+
+  def delete
+    Section.find(params[:id]).destroy
+    redirect_to :show, id: user_default_section.id
   end
 
   private

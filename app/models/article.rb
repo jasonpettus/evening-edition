@@ -19,6 +19,10 @@ class Article < ActiveRecord::Base
     white_similarity_on_words(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
   end
 
+  def has_image?
+    img_link && img_link != 'NONE'
+  end
+
   private
     def remove_ignored_words(string)
       (string.downcase.split(' ') - LIST_OF_WORDS_TO_IGNORE).join(' ')
