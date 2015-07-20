@@ -1,0 +1,13 @@
+<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name, sections: @sections} %>
+<%= render "application/main" %>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--8-col center">
+    <div class="section_box"><p>
+      <%= form_for @section do |f| %>
+        <%= f.text_field :title, placeholder: 'Section name' %>
+        <%= f.submit value: 'Rename' %>
+      <% end %>
+    </p></div>
+  </div>
+</div>
