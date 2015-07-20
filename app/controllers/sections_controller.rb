@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
   def create
     @section = current_user.sections.build(section_params)
     if @section.save
-      redirect_to "sections/#{@section.id}/subscriptions"
+      redirect_to :edit
     else
       render :new
     end
