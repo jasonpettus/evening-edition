@@ -9,5 +9,5 @@
 default_section = Section.create!(title: 'Default')
 
 File.foreach('db/defaultfeeds.txt').each_slice(3) do |feed|
-  default_section.subscriptions.create(name: feed[0].chomp, set_feed: feed[1].chomp)
+  default_section.subscriptions.create(name: feed[0].chomp,)
 end
