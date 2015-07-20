@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
   SIMILARITY_WEIGHT = 0.40
   LIST_OF_WORDS_TO_IGNORE = ['a','an','the','to','and','of','be', 'in', 'at', 'this', 'that']
 
+  before_save   :strip_ads
+
   def set_article=(article)
     self.title = article.title
     self.url = article.url
@@ -22,6 +24,23 @@ class Article < ActiveRecord::Base
 
   def has_image?
     img_link && img_link != 'NONE'
+  end
+
+  def strip_ads
+    decoder =  HTMLEntities.new
+    self.articles.each do |article|
+      unless article.summary.nil?
+          stripped_summary = article.summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
+          decoded_summary = decoder.decode(stripped_summary)
+          article.summary = decoded_summary
+      end
+      
+      unless article.title.nil?
+          stripped_title = article.title.gsub(/<.*?<\/.*?>/m,"")
+          decoded_title = decoder.decode(stripped_title)
+          article.title = decoded_title
+      end
+    end
   end
 
   private
