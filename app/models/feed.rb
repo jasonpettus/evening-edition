@@ -1,8 +1,8 @@
 class Feed < ActiveRecord::Base
 	attr_reader	:feed, :entries
 
-	belongs_to	:subscription
-	belongs_to 	:article
+	has_many	:subscriptions
+	has_many 	:articles
 
 	before_save 	:get_articles
 	after_save		:save_articles
