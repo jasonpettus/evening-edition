@@ -11,9 +11,6 @@ class Subscription < ActiveRecord::Base
 	has_one		:user, through: :section
 	belongs_to 	:section
 
-	# def set_feed
-	# end
-
 	def get_articles
 		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
 		self.url = self.feed.url
