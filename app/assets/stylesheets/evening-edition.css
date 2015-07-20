@@ -45,10 +45,6 @@ p {
   color: #FFB74D;
 }
 
-.mdl-grid a:visited {
-  color: LightGray;
-}
-
 .mdl-cell {
   padding: 0.75em;
   background-color: white;
@@ -124,4 +120,30 @@ p {
 .login_box input {
   font-family: 'Lusitana', serif;
   font-size: 12px;
+}
+
+.center {
+  margin: auto;
+}
+
+.section_box {
+  text-align: center;
+  margin: auto;
+}
+
+.section_box input {
+  font-family: 'Lusitana', serif;
+  font-size: 1.25em;
+}
+
+.inline {
+  display: inline;
+}
+
+.list-left {
+  text-align: left;
+}
+
+.pd-4 {
+  padding: 0 4em 0 4em;
 }

@@ -1,7 +1,17 @@
-<ul>
-	<% @subscriptions.each do |subscription| %>
-		<li>
-			<%= link_to "#{ subscription.feed_url }", section_subscription_path(@section, subscription) %>
-		</li>
-	<% end %>
-</ul>
+<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name} %>
+<%= render "application/main" %>
+
+<div class="mdl-grid">
+  <% @stories.each do |story| %>
+    <% case story["size"] %>
+      <% when "splash" %>
+        <%= render partial: "application/article_splash", locals: { story: story } %>
+      <% when "big" %>
+        <%= render partial: "application/article_big", locals: { story: story } %>
+      <% when "medium" %>
+        <%= render partial: "application/article_medium", locals: { story: story } %>
+      <% when "small" %>
+        <%= render partial: "application/article_small", locals: { story: story } %>
+    <% end %>
+  <% end %>
+</div>
