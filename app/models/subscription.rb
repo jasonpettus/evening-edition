@@ -10,12 +10,9 @@ class Subscription < ActiveRecord::Base
 	has_many	:recent_articles, -> { order("created_at DESC").limit(5) }, class_name: 'Article'
 	has_one		:user, through: :section
 	belongs_to 	:section
-	before_save	:get_articles
-	after_save	:save_articles
 
-	def set_feed=(rss)
-		@feed = Feedjira::Feed.fetch_and_parse(rss) #--***
-		self.feed_url = rss
+	def set_feed
+		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
 		self.url = self.feed.url
 	end
 

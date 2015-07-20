@@ -33,6 +33,7 @@ class SectionsController < ApplicationController
 
   def edit
     @section = Section.find(params[:id])
+    @subscriptions = @section.subscriptions
   end
 
   def update
