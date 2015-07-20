@@ -30,8 +30,8 @@ gem 'autoprefixer-rails'
 gem 'nokogiri'
 gem 'fastimage'
 gem 'image_info', git: 'https://github.com/bwootten/image_info.git'
-gem 'open_uri_redirections'
 gem 'mechanize'
+gem 'htmlentities'
 
 gem 'text'
 

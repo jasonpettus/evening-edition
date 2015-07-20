@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.create(params[subscription_params], section: @section)
 
 		if @subscription.valid?
-			redirect_to :back
+			redirect_to edit_section( @section )
 		end
 	end
 
