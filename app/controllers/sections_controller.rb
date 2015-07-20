@@ -8,10 +8,10 @@ class SectionsController < ApplicationController
     	@active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
     	@sections = current_user.sections
     	@stories = @active_section.stories
+      render 'default' #remove this later
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.stories
-      # @stories.each { |story| p story if story['other_sources'] != [] }
       @page_name = "Top Stories"
       render 'default'
     end
@@ -36,6 +36,7 @@ class SectionsController < ApplicationController
   end
 
   def new
+    redirect_to root_path #remove this later
     @section = Section.new
   end
 
