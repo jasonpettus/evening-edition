@@ -47,9 +47,9 @@ class Section < ActiveRecord::Base
   def story_importance(story_cluster)
     case story_cluster.length
     when 1
-      'splash'
+      'medium'
     when 2..3
-      'splash'
+      'big'
     else
       'splash'
     end
