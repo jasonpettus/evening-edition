@@ -2,23 +2,25 @@
 <%= render "application/main" %>
 
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--8-col center">
+  <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--8-col center pd-4">
     <div class="section_box"><p>
       <%= form_for @section do |f| %>
-        <%= f.text_field :title, placeholder: 'Section name' %>
+        <%= f.text_field :title, class: 'list-left', placeholder: 'Section name' %>
         <%= f.submit value: 'Add Section' %>
       <% end %>
     </p></div>
 
     <% @sections.each do |section| %>
-    	<p class="mdl-typography--display-2 inline">
-        <%= link_to "#{ section.title }", section_path( section ) %>
-        <%= form_tag(edit_section_path( section ), method: :get, class: 'inline') do %>
-          <%= submit_tag 'Rename' %>
-        <% end %>
-        <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline') do %>
+      <p class="list-left">
+        <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline fl-r') do %>
           <%= submit_tag 'Delete' %>
         <% end %>
+        <%= form_tag(edit_section_path( section ), method: :get, class: 'inline fl-r') do %>
+          <%= submit_tag 'Rename' %>
+        <% end %>
+        <span class="mdl-typography--display-2 inline">
+          <%= link_to "#{ section.title }", section_subscriptions_path( section ) %>
+        </span>
       </p>
     <% end %>
   </div>
