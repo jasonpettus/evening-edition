@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
   SIMILARITY_WEIGHT = 0.40
   LIST_OF_WORDS_TO_IGNORE = ['a','an','the','to','and','of','be', 'in', 'at', 'this', 'that']
 
+  before_save   :strip_ads
+
   def set_article=(article)
     self.title = article.title
     self.url = article.url

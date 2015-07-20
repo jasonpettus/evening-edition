@@ -1,6 +1,11 @@
 class Feed < ActiveRecord::Base
+	attr_reader	:feed, :entries
+
 	belongs_to	:subscription
 	belongs_to 	:article
+
+	before_save 	:get_articles
+	after_save		:save_articles
 
 	def get_articles
 		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
@@ -12,9 +17,10 @@ class Feed < ActiveRecord::Base
 		@entries.each { |entry| self.articles << entry }
 	end
 
-	def save_articles
-		strip_ads
-		get_feature_imgs(self.articles)
-		self.articles.each { |article| article.save }
-	end
+	private
+		def save_articles
+			strip_ads
+			get_feature_imgs(self.articles)
+			self.articles.each { |article| article.save }
+		end
 end
