@@ -9569,6 +9569,19 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     line-height: 1.4em;
     opacity: 0.87; }
 
+  .mdl-typography--caption {
+    font-family: 'Lusitana', serif;
+    font-size: 4em;
+    font-weight: 400;
+    line-height: 1.4em; }
+
+  .mdl-typography--caption-color-contrast {
+    font-family: 'Lusitana', serif;
+    font-size: 4em;
+    font-weight: 400;
+    line-height: 1.4em;
+    opacity: 0.87; }
+
   .mdl-typography--body-1 {
     font-family: 'Lusitana', serif;
     font-size: 4em;
