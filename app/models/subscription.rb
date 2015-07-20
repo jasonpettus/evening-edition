@@ -68,21 +68,4 @@ class Subscription < ActiveRecord::Base
 
 	private
 
-		def strip_ads
-			decoder =  HTMLEntities.new
-			self.articles.each do |article|
-				unless article.summary.nil?
-						stripped_summary = article.summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
-						decoded_summary = decoder.decode(stripped_summary)
-						article.summary = decoded_summary
-				end
-				
-				unless article.title.nil?
-						stripped_title = article.title.gsub(/<.*?<\/.*?>/m,"")
-						decoded_title = decoder.decode(stripped_title)
-						article.title = decoded_title
-				end
-			end
-		end
-
 end
