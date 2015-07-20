@@ -1,7 +1,7 @@
 class Section < ActiveRecord::Base
 	belongs_to	:user
   has_many  :subscriptions, dependent: :destroy
-  has_many :stories, through: :user
+  has_many :stories
   has_many :articles, through: :subscriptions
 
 	validates	:title, uniqueness: { scope: :user }
@@ -9,8 +9,8 @@ class Section < ActiveRecord::Base
 
 
   def cluster_similar_stories
-    todays_articles = articles.where("created_at > now() - interval '1 day'")
-    clusters = cluster_articles(todays_stories)
+    todays_articles = articles.where("articles.created_at > now() - interval '1 day'")
+    clusters = cluster_articles(todays_articles)
     todays_stories = clusters_to_stories(clusters)
     todays_stories.each {|story| story.fetch_img if story.size == 'big' || story.size == 'splash' }
   end
@@ -40,9 +40,9 @@ class Section < ActiveRecord::Base
   end
 
   def clusters_to_stories(clusters)
-    stories = cluster.map do |story_cluster|
+    story_clusters = clusters.map do |story_cluster|
       # sort story_cluster so preferred stories are first
-      stories.build(top_story: story_cluster[0], articles: story_cluster, size: 'medium')
+      stories.create(preferred_story: story_cluster[0], articles: story_cluster, size: 'medium')
     end
 
     # Split stories into groups with images and without images

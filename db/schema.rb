@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150720182645) do
 
   create_table "stories", force: :cascade do |t|
     t.string   "size"
-    t.integer  "user_id"
+    t.integer  "section_id"
     t.integer  "preferred_story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
