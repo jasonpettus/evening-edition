@@ -33,6 +33,9 @@ gem 'image_info', git: 'https://github.com/bwootten/image_info.git'
 gem 'mechanize'
 gem 'htmlentities'
 
+# Use Kaminari to generate pagination links at bottom of pages
+gem 'kaminari'
+
 gem 'text'
 
 gem 'coveralls', require: false
