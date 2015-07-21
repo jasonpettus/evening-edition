@@ -4,8 +4,7 @@
   </p>
 
   <p>
-    <span class="mdl-typography--title"><%= Time.now.strftime("For %B %d, %Y") %></span><br>
-    <span class="mdl-typography--caption">Updated each day at 5 pm Chicago local time</span>
+    <span class="mdl-typography--title"><%= Time.now.strftime("For %B %d, %Y") %></span>
   </p>
 
   <div class="login mdl-color--orange-900">
@@ -13,6 +12,7 @@
       <% if user_logged_in? %>
         Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path, method: :delete %>
       <% else %>
+        Updated each day at 5 pm Chicago local time.<br>
         Members receive personalized subscriptions, sections, and delivery times.
         <%= link_to "Create a free account now.", users_new_path, id: 'sign-up'%><br>
         <%= render 'login' %>
