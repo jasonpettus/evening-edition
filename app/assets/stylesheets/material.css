@@ -6707,7 +6707,6 @@ ul, ol {
 .mdl-layout__content {
   width: 100%;
   margin: auto;
-  padding-top: 75px;
   -ms-flex: 0 1 auto;
   display: inline-block;
   overflow-y: auto;
