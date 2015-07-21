@@ -1,9 +1,16 @@
 <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--2-col">
-  <%= render partial: 'more_button', locals: {story: story} %>
+  <button id="<%= story.preferred_story.id %>" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
+    <i class="material-icons">more_vert</i>
+  </button>
 
   <span class="mdl-typography--body-1"><%= link_to story.preferred_story.title, story.preferred_story.url %></span><br>
 
   <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= story.preferred_story.news_source(story.section_id) %></span>
 
-  <%= render partial: 'related', locals: {story: story} %>
+  <ul for="<%= story.preferred_story.id %>" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
+    <p class="mdl-menu__item">Related:</p>
+    <% story.other_sources.each do |related| %>
+      <li class="mdl-menu__item"><%= link_to related.title, related.url %> <span class="mdl-color-text--grey-500">--<%= related.news_source(story.section_id) %></span></li>
+    <% end %>
+  </ul>
 </div>

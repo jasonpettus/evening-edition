@@ -11,12 +11,12 @@ class SectionsController < ApplicationController
     if user_logged_in?
       @active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
       @sections = current_user.sections
-    	@stories = @active_section.stories.page params[:page]
+    	@stories = @active_section.stories
       @page_name = @active_section.title
       render 'default' #remove this later
     else
       @section = Section.find_by(title: 'Default')
-      @stories = @section.stories.page params[:page]
+      @stories = @section.stories
       @page_name = "Top Stories"
       render 'default'
     end
