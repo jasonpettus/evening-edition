@@ -12,11 +12,16 @@ class SectionsController < ApplicationController
       @active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
-      @page_name = @active_section.title
-      render 'default' #remove this later
+      # @page_name = @active_section.title
+      @page_name = "Top Stories"
+      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
+      # render 'default' #remove this later
     else
       @section = Section.find_by(title: 'Default')
-      @stories = @section.todays_stories
+      # @stories = @section.todays_stories
+      # @stories = @section.todays_stories.page(params[:page])
+      # @stories = @section.todays_stories.limit(25).page(params[:page])
+      @stories = Kaminari.paginate_array(@section.todays_stories).page(params[:page]).per(5)
       @page_name = "Top Stories"
       render 'default'
     end
