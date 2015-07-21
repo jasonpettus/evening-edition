@@ -15,7 +15,7 @@ class Section < ActiveRecord::Base
   end
 
   def todays_stories
-    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC")
+    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC").limit(14)
     assign_sizes(order_stories(recent_stories))
   end
 
