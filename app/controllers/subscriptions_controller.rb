@@ -1,14 +1,15 @@
 class SubscriptionsController < ApplicationController
-	def new 
+	def new
 		@subscription = Subscription.new
 	end
 
 	def create
+		p params
 		@section = Section.find_by(id: params[:section_id])
-		@subscription = Subscription.create(params[subscription_params], section: @section)
-
+		@subscription = Subscription.create(subscription_params)
+		@subscription.update_attributes(section: @section, feed: Feed.first_or_create(feed_url: params['subscription']['feed']))
 		if @subscription.valid?
-			redirect_to edit_section( @section )
+			redirect_to section_path(@section)
 		end
 	end
 
@@ -18,6 +19,6 @@ class SubscriptionsController < ApplicationController
 
 	private
 		def subscription_params
-			params.require(:subscription).permit(:feed_url, :name)
+			params.require(:subscription).permit(:name)
 		end
 end

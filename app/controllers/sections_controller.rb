@@ -5,6 +5,8 @@ class SectionsController < ApplicationController
     @sections = current_user.sections
     @section = Section.new
     @page_name = "Edit Sections"
+    @subscription = @section.subscriptions.new
+    # @feed = Feed.new
   end
 
 	def show
