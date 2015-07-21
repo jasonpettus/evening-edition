@@ -12,20 +12,7 @@
 
 
       <% section.subscriptions.each do |subscription| %>
-        <p class="list-left">
-          <span class="vertical-center">
-            <%= form_tag("/subscriptions/#{ subscription.id }", method: :delete, class: 'inline') do %>
-              <%= submit_tag 'Delete' %>
-            <% end %>
-            <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline') do %>
-              <%= submit_tag 'Rename' %>
-            <% end %>
-          </span>
-
-          <span class="mdl-typography--title inline">
-            <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
-          </span>
-        </p>
+        <%= render partial: 'subscriptions/subscription', locals: { section: section, subscription: subscription } %>
       <% end %>
       </div>
 

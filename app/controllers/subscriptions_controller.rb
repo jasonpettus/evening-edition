@@ -9,7 +9,11 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.create(subscription_params)
 		@subscription.update_attributes(section: @section, feed: Feed.first_or_create(feed_url: params['subscription']['feed']))
 		if @subscription.valid?
-			redirect_to section_path(@section)
+			if request.xhr?
+				render partial: 'subscriptions/subscription', locals: { section: @section, subscription: @subscription }
+			else
+				redirect_to section_path(@section)
+			end
 		end
 	end
 
