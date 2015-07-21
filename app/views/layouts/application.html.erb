@@ -14,6 +14,15 @@
 
 <%= render "application/masthead" %>
 
+<% if user_logged_in? %>
+  <%= render partial: "application/bannerdrawer", locals: {page_name: @page_name, sections: @sections} %>
+<% else %>
+  <%= render partial: "application/bannernodrawer", locals: {page_name: @page_name} %>
+<% end %>
+
+<main class="mdl-layout__content">
+<div class="page-content mdl-color--blue-grey">
+
         <%= yield %>
       </div>
     </main>

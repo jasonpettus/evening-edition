@@ -9642,9 +9642,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     font-size: 3em;
     line-height: 1.4em;
     font-weight: 400;
-    height: auto; }
-
-}
+    height: auto; } }
 
 @media (min-width: 480px) and (max-width: 839px) {
   .mdl-grid {
