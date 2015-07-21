@@ -11,5 +11,6 @@ function showSignupForm(event){
     console.log(response)
     $(".page-content").prepend(response);
     $(".mdl-grid").hide();
+    $("#banner").text("Create Account")
   });
 };
