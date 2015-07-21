@@ -14,11 +14,10 @@ class Section < ActiveRecord::Base
     todays_stories = clusters_to_stories(clusters)
   end
 
-  # def stories
-  #   stories = subscriptions.map { |subscription| subscription.recent_articles }
-  #   story_clusters = cluster_articles(stories.flatten)
-  #   stories_to_hash(story_clusters)
-  # end
+  def todays_stories
+    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC")
+    assign_sizes(order_stories(recent_stories))
+  end
 
   private
   def cluster_articles(articles)
@@ -43,8 +42,8 @@ class Section < ActiveRecord::Base
       # sort story_cluster so preferred stories are first
       stories.create(preferred_story: story_cluster[0], articles: story_cluster)
     end
-    get_imgs
-    assign_sizes(order_stories)
+    get_imgs(story_clusters)
+    assign_sizes(ordered_stories(story_cluster))
     # Split stories into groups with images and without images
     # build an array of size groups out of those
     # shuffle then flatten?
@@ -55,9 +54,9 @@ class Section < ActiveRecord::Base
 
   end
 
-  def get_imgs
-    number_of_images_needed = ((3 * stories.length) / 13) + partial_patten_offset
-    stories.each do |story|
+  def get_imgs(story_cluster)
+    number_of_images_needed = ((3 * story_cluster.length) / 13) + partial_patten_offset
+    story_cluster.each do |story|
       story.fetch_img
       if story.has_image?
         number_of_images_needed -= 1
@@ -66,11 +65,11 @@ class Section < ActiveRecord::Base
     end
   end
 
-  def order_stories
-    with_img = stories.select { |story| story.has_image? }
-    without_img = stories.reject { |story| story.has_image? }
+  def order_stories(story_cluster)
+    with_img = story_cluster.select { |story| story.has_image? }
+    without_img = story_cluster.reject { |story| story.has_image? }
 
-    ordered_stories = Array.new(stories.length)
+    ordered_stories = Array.new(story_cluster.length)
     ordered_stories.each_with_index do |story, i|
       if (i % 13 == 0 || i % 13 == 4 || i % 13 == 8) && !with_img.empty?
         ordered_stories[i] = with_img.pop

@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   has_many :stories, through: :sections
   has_secure_password
 
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
 end
