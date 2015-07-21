@@ -1,16 +1,22 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <div class="mdl-layout mdl-js-layout mdl-layout--drawer mdl-layout--overlay-drawer-button">
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title"><%= link_to "Edit Sections", sections_path %></span>
-      <nav class="mdl-navigation">
-        <% sections.each do |section| %>
-          <li>
-            <%= link_to "#{ section.title }", section_path( section ), class: "mdl-navigation__link" %>
-          </li>
-        <% end %>
-      </nav>
-    </div>
+<div class="mdl-layout mdl-js-layout">
 
-    <header class="mdl-layout__header mdl-color--orange-300">
-      <span id="banner" class="mdl-typography--display-3"><%= page_name %></span>
-    </header>
+
+
+  <header class="mdl-layout__header mdl-color--orange-300">
+    <div class="mdl-layout mdl-js-layout mdl-layout--drawer mdl-layout--overlay-drawer-button">
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title"><%= link_to "Edit Sections", sections_path %></span>
+        <nav class="mdl-navigation">
+          <% sections.each do |section| %>
+            <li>
+              <%= link_to "#{ section.title }", section_path( section ), class: "mdl-navigation__link" %>
+            </li>
+          <% end %>
+        </nav>
+      </div>
+    </div>
+    <span id="banner" class="mdl-typography--display-3"><%= page_name %></span>
+  </header>
+
+
+</div>

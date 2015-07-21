@@ -1,5 +1,7 @@
 <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone round image" style="background-image: url('<%= story.preferred_story.img_link %>');">
-  <%= render partial: "application/more_button", locals: {story: story} %>
+  <% if story.other_sources.count > 0 %>
+    <%= render partial: "application/more_button", locals: {story: story} %>
+  <% end %>
 
   <div class="photo-overlay">
     <span class="mdl-typography--display-2 mdl-color-text--white"><%= link_to story.preferred_story.title, story.preferred_story.url %></span><br>
