@@ -1,6 +1,3 @@
-<%= render partial: "application/bannerdrawer", locals: {page_name: @page_name} %>
-<%= render "application/main" %>
-
 <div class="mdl-grid">
   <% @stories.each do |story| %>
     <% case story.size %>
