@@ -3,7 +3,7 @@
 
 <div class="mdl-grid">
   <% @stories.each do |story| %>
-    <% case story["size"] %>
+    <% case story.size %>
       <% when "splash" %>
         <%= render partial: "application/article_splash", locals: { story: story } %>
       <% when "big" %>

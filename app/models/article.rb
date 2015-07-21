@@ -1,12 +1,13 @@
 class Article < ActiveRecord::Base
-	belongs_to	:subscription
+  belongs_to  :feed
+  has_many :subscriptions, through: :feed
   has_many :articles_stories
   has_many :stories, through: :articles_stories
 
   SIMILARITY_WEIGHT = 0.40
   LIST_OF_WORDS_TO_IGNORE = ['a','an','the','to','and','of','be', 'in', 'at', 'this', 'that']
 
-  before_save   :strip_ads
+  before_create :strip_ads
 
   def set_article=(article)
     self.title = article.title
@@ -33,7 +34,8 @@ class Article < ActiveRecord::Base
     unless summary.nil?
       stripped_summary = summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
       decoded_summary = decoder.decode(stripped_summary)
-      self.summary = decoded_summary
+
+      self.summary = decoded_summary.split(" ").slice(0..20).push("...").join(" ")
     end
 
     unless title.nil?
@@ -41,6 +43,10 @@ class Article < ActiveRecord::Base
       decoded_title = decoder.decode(stripped_title)
       self.title = decoded_title
     end
+  end
+
+  def news_source(section_id)
+    subscriptions.where("section_id = #{section_id}").first.name
   end
 
   private

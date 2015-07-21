@@ -4,7 +4,7 @@ class Feed < ActiveRecord::Base
 	has_many	:subscriptions
 	has_many 	:articles
 
-	before_save 	:get_articles
+	after_create	:get_articles
 
 	def get_articles
 		@feed = Feedjira::Feed.fetch_and_parse(self.feed_url)
@@ -12,7 +12,6 @@ class Feed < ActiveRecord::Base
 		@entries = self.feed.entries
 		@entries.map! do |entry|
 			article = articles.build(set_article: entry)
-			article.strip_ads
 			article.save
 		end
 	end
