@@ -1,7 +1,13 @@
 class Article < ActiveRecord::Base
-	belongs_to	:subscription
+  belongs_to  :feed
+  has_many :subscriptions, through: :feed
+  has_many :articles_stories
+  has_many :stories, through: :articles_stories
+
   SIMILARITY_WEIGHT = 0.40
   LIST_OF_WORDS_TO_IGNORE = ['a','an','the','to','and','of','be', 'in', 'at', 'this', 'that']
+
+  before_create :strip_ads
 
   def set_article=(article)
     self.title = article.title
@@ -15,13 +21,32 @@ class Article < ActiveRecord::Base
   def is_similar_to?(article)
     subbed_title = remove_ignored_words(title)
     subbed_article_title = remove_ignored_words(article.title)
-
     # Text::WhiteSimilarity.new.similarity(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
     white_similarity_on_words(subbed_title, subbed_article_title) >= SIMILARITY_WEIGHT
   end
 
   def has_image?
     img_link && img_link != 'NONE'
+  end
+
+  def strip_ads
+    decoder =  HTMLEntities.new
+    unless summary.nil?
+      stripped_summary = summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
+      decoded_summary = decoder.decode(stripped_summary)
+
+      self.summary = decoded_summary.split(" ").slice(0..20).push("...").join(" ")
+    end
+
+    unless title.nil?
+      stripped_title = title.gsub(/<.*?<\/.*?>/m,"")
+      decoded_title = decoder.decode(stripped_title)
+      self.title = decoded_title
+    end
+  end
+
+  def news_source(section_id)
+    subscriptions.where("section_id = #{section_id}").first.name
   end
 
   private

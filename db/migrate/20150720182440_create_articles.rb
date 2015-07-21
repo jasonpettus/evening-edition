@@ -5,7 +5,7 @@ class CreateArticles < ActiveRecord::Migration
       t.text :summary
       t.string :url
       t.string :last_modified
-      t.references :subscription
+      t.references :feed
       t.string :img_link
       t.timestamps
     end

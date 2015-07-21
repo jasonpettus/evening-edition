@@ -1,13 +1,14 @@
 <div class="mdl-cell mdl-cell--8-col-phone round mdl-cell--8-col">
-  <%= image_tag(story['preferred'].img_link, width: '200', class: "med_box_image fl-r") %>
+  <%= image_tag(story.preferred_story.img_link, width: '200', class: "med_box_image fl-r") %>
 
   <%= render partial: 'more_button', locals: {story: story} %>
 
-  <span class="mdl-typography--title"><%= link_to story["preferred"].title, story["preferred"].url %></span><br>
+  <span class="mdl-typography--title"><%= link_to story.preferred_story.title, story.preferred_story.url %></span><br>
 
-  <span class="mdl-typography--body-1"><%= story["preferred"].summary %></span><br>
+  <span class="mdl-typography--body-1"><%= story.preferred_story.summary %></span><br>
 
-  <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= story["preferred"].subscription.name %></span>
+  <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= story.preferred_story.news_source(story.section_id) %></span>
+
 
   <%= render partial: 'related', locals: {story: story} %>
 </div>

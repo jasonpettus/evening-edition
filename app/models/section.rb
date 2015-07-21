@@ -1,16 +1,24 @@
 class Section < ActiveRecord::Base
-	has_many 	:subscriptions, dependent: :destroy
 	belongs_to	:user
+  has_many  :subscriptions, dependent: :destroy
+  has_many :stories
   has_many :articles, through: :subscriptions
 
 	validates	:title, uniqueness: { scope: :user }
 
 
-  def stories
-    stories = subscriptions.map { |subscription| subscription.recent_articles }
-    story_clusters = cluster_articles(stories.flatten)
-    stories_to_hash(story_clusters)
+
+  def cluster_similar_stories
+    todays_articles = articles.where("articles.created_at > now() - interval '1 day'")
+    clusters = cluster_articles(todays_articles)
+    todays_stories = clusters_to_stories(clusters)
   end
+
+  # def stories
+  #   stories = subscriptions.map { |subscription| subscription.recent_articles }
+  #   story_clusters = cluster_articles(stories.flatten)
+  #   stories_to_hash(story_clusters)
+  # end
 
   private
   def cluster_articles(articles)
@@ -30,11 +38,13 @@ class Section < ActiveRecord::Base
     clusters
   end
 
-  def stories_to_hash(cluster)
-    cluster = cluster.map do |story_cluster|
+  def clusters_to_stories(clusters)
+    story_clusters = clusters.map do |story_cluster|
       # sort story_cluster so preferred stories are first
-      { 'preferred' => story_cluster[0], 'other_sources' => story_cluster[1..-1], 'size' => story_importance(story_cluster) }
+      stories.create(preferred_story: story_cluster[0], articles: story_cluster)
     end
+    get_imgs
+    assign_sizes(order_stories)
     # Split stories into groups with images and without images
     # build an array of size groups out of those
     # shuffle then flatten?
@@ -45,19 +55,56 @@ class Section < ActiveRecord::Base
 
   end
 
-  def random_story_importance(story_cluster)
-    if story_cluster[0].has_image?
-      %w(big medium splash small).sample
-    else
-      %w(medium small).sample
+  def get_imgs
+    number_of_images_needed = ((3 * stories.length) / 13) + partial_patten_offset
+    stories.each do |story|
+      story.fetch_img
+      if story.has_image?
+        number_of_images_needed -= 1
+      end
+      break if number_of_images_needed == 0
     end
-    # case story_cluster.length
-    # when 1
-    #   'medium'
-    # when 2..3
-    #   'big'
-    # else
-    #   'splash'
-    # end
+  end
+
+  def order_stories
+    with_img = stories.select { |story| story.has_image? }
+    without_img = stories.reject { |story| story.has_image? }
+
+    ordered_stories = Array.new(stories.length)
+    ordered_stories.each_with_index do |story, i|
+      if (i % 13 == 0 || i % 13 == 4 || i % 13 == 8) && !with_img.empty?
+        ordered_stories[i] = with_img.pop
+      else
+        ordered_stories[i] = without_img.pop
+      end
+    end
+    ordered_stories
+  end
+
+  def assign_sizes(ordered_stories)
+    ordered_stories.each_with_index do |story, i|
+      case i % 13
+      when 0
+        story.size = "splash"
+      when 4, 8
+        story.size = "big"
+      when 1, 2, 3, 7, 11, 12
+        story.size = "medium"
+      else
+        story.size = "small"
+      end
+      story.save
+    end
+  end
+
+  def partial_patten_offset
+    case stories.length % 13
+    when 0,1,2,3
+      1
+    when 4,5,6,7
+      2
+    else
+      3
+    end
   end
 end
