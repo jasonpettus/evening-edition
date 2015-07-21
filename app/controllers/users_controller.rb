@@ -29,6 +29,9 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @page_name = "Create Account"
+    if request.xhr?
+      render partial: "users/user_form", locals: { user: @user }
+    end
   end
 
   def show
