@@ -14,20 +14,15 @@ class SectionsController < ApplicationController
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
       respond_to do |format|
-        format.js { render text: "hi Leon"}
+        format.js { render text: "HELLO!"}
         format.html
       end
-
-      # @page_name = @active_section.title
-      @page_name = "Top Stories"
       @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
-      # render 'default' #remove this later
+      render 'default' # remove this later
     else
       @section = Section.find_by(title: 'Default')
-      # @stories = @section.todays_stories
-      # @stories = @section.todays_stories.page(params[:page])
-      # @stories = @section.todays_stories.limit(25).page(params[:page])
-      @stories = Kaminari.paginate_array(@section.todays_stories).page(params[:page]).per(5)
+      @stories = @section.todays_stories
+      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
       @page_name = "Top Stories"
       render 'default'
     end
