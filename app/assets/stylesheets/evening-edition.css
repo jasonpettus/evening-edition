@@ -77,6 +77,12 @@ p {
   float: right;
 }
 
+.vertical-center {
+  position: absolute;
+  top: 33%;
+  right: 0.5em;
+}
+
 .cl-r {
   clear: right;
 }
@@ -127,6 +133,10 @@ p {
   margin: auto;
 }
 
+.center-box {
+  margin: auto;
+}
+
 .section_box {
   text-align: center;
   margin: auto;
@@ -145,6 +155,21 @@ p {
   text-align: left;
 }
 
+.w-50 {
+  width: 50%;
+}
+
 .pd-4 {
   padding: 0 4em 0 4em;
+}
+
+.pd-2 {
+  padding: 0 2em 0 2em;
+}
+
+.gray-box {
+  position: relative;
+  background-color: LightGray;
+  vertical-align: bottom;
+  padding: 0.5em;
 }
