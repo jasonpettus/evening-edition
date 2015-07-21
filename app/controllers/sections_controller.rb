@@ -2,6 +2,13 @@ class SectionsController < ApplicationController
 
   before_action :authorize_user_logged_in, except: :show
 
+  def index
+    @sections = current_user.sections
+    @section = Section.new
+    @page_name = "Edit Sections"
+    @subscriptions = @section.subscriptions
+  end
+
 	def show
     if user_logged_in?
     	@active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
