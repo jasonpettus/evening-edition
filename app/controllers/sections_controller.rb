@@ -13,7 +13,11 @@ class SectionsController < ApplicationController
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
-      render 'default' #remove this later
+       #remove this later
+      respond_to do |format|
+        format.js { render text: "hi Leon"}
+        format.html
+      end
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.todays_stories
