@@ -15,17 +15,22 @@ class SectionsController < ApplicationController
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
+      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
       respond_to do |format|
         format.js { render text: "HELLO!"}
         format.html
       end
-      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
     else
       @section = Section.find_by(title: 'Default')
-      @stories = @section.todays_stories
-      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
+      # @stories = @section.todays_stories
+      # @stories = @section.todays_stories.page(params[:page])
+      # @stories = @section.todays_stories.limit(25).page(params[:page])
+      @stories = Kaminari.paginate_array(@section.todays_stories).page(params[:page]).per(13)
       @page_name = "Top Stories"
-      render 'default'
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
 	end
 
@@ -37,10 +42,19 @@ class SectionsController < ApplicationController
 
   def create
     @section = current_user.sections.build(section_params)
+    @subscription = Subscription.new
     if @section.save
-      redirect_to :edit
+      if request.xhr?
+        render partial: 'sections/section', locals: { section: @section }
+      else
+        redirect_to :index
+      end
     else
-      render :new
+      if request.xhr?
+        redirect_to :index
+      else
+        redirect_to :index
+      end
     end
   end
 
@@ -63,20 +77,6 @@ class SectionsController < ApplicationController
   def destroy
     Section.find(params[:id]).destroy
     redirect_to :back
-  end
-
-  def new
-    @section = Section.new
-    redirect_to root_path #remove this later
-  end
-
-  def create
-    @section = current_user.sections.build(section_params)
-    if @section.save
-      redirect_to :back
-    else
-      render :new
-    end
   end
 
   private
