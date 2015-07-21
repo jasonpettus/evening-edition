@@ -18,7 +18,6 @@ class SectionsController < ApplicationController
         format.html
       end
       @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
-      render 'default' # remove this later
     else
       @section = Section.find_by(title: 'Default')
       @stories = @section.todays_stories
