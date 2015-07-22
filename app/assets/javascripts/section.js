@@ -23,5 +23,6 @@ function submitNewSection(event){
     data: $form.serialize()
   }).done(function(response){
     $form.after(response)
+    $form.children(':text').val('')
   });
 };

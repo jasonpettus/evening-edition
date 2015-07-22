@@ -17,8 +17,31 @@ class SubscriptionsController < ApplicationController
 		end
 	end
 
-	def delete
+	def edit
+		@subscription = Subscription.find(params[:id])
+		if request.xhr?
+			render partial: 'subscriptions/edit_form', locals: { subscription: @subscription }
+		else
+		end
+	end
+
+	def update
+		@subscription = Subscription.find(params[:id])
+		@subscription.update_attributes(subscription_params)
+		if @subscription.valid?
+			if request.xhr?
+				render nothing: true
+			end
+		end
+	end
+
+	def destroy
 		Subscription.find_by(id: params[:id]).destroy
+		if request.xhr?
+			render nothing: true
+		else
+		redirect_to :back
+		end
 	end
 
 	private
