@@ -167,11 +167,12 @@ p {
   padding: 0 2em 0 2em;
 }
 
-.gray-box {
+.section-box {
   position: relative;
   background-color: DarkGray;
   vertical-align: bottom;
   padding: 0.5em;
+  margin: 0.5em 0 0.5em 0;
 }
 
 .feed-box {
@@ -179,5 +180,5 @@ p {
   background-color: LightGray;
   vertical-align: bottom;
   padding: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0 0.5em 0;
 }
