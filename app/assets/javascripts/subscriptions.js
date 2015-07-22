@@ -38,7 +38,8 @@ function createEditSubscriptionForm(event){
     method: 'GET'
   }).done(function(response){
       $form.siblings().hide();
-      $form.parent().append(response);
+      $form.after(response);
+      $form.siblings('div').find(':text').focus();
       $form.hide();
     });
 };
