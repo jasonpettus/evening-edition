@@ -1,3 +1,5 @@
-<button id="<%= story.preferred_story.id %>" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
-    <i class="material-icons">more_vert</i>
-</button>
+<% unless story.other_sources.empty? %>
+	<button id="<%= story.preferred_story.id %>" class="mdl-button mdl-js-button mdl-button--icon mdl-color--orange-300">
+	    <i class="material-icons">more_vert</i>
+	</button>
+<% end %>
