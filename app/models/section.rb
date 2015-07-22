@@ -9,13 +9,13 @@ class Section < ActiveRecord::Base
 
 
   def cluster_similar_stories
-    todays_articles = articles.where("articles.created_at > now() - interval '1 day'")
+    todays_articles = articles.where("articles.created_at > now() - interval '23 hour'")
     clusters = cluster_articles(todays_articles)
     todays_stories = clusters_to_stories(clusters)
   end
 
   def todays_stories
-    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC")
+    recent_stories = stories.where("stories.updated_at > now() - interval '23 hour'").order("stories.id DESC")
     assign_sizes(order_stories(recent_stories))
   end
 

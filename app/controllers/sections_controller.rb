@@ -15,7 +15,7 @@ class SectionsController < ApplicationController
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
-      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
+      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(26)
       respond_to do |format|
         format.js { render text: "HELLO!"}
         format.html
