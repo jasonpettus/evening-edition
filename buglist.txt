@@ -1,0 +1,1 @@
+Subscriptions on "add sections/subscriptions" page are linking to non-existent template
