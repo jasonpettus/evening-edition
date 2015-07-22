@@ -1,9 +1,11 @@
 <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--2-col <%= 'talked-about' if story.other_sources.count > 1 %>">
   <%= render partial: "application/more_button", locals: {story: story} %>
-  
+
   <span class="mdl-typography--body-1"><%= link_to story.preferred_story.title, story.preferred_story.url %></span><br>
 
   <span class="mdl-typography--body-1 mdl-color-text--grey-500"><%= story.preferred_story.news_source(story.section_id) %></span>
+
+  <%= render partial: "application/save_button", locals: {story: story} %>
 
   <%= render partial: "application/related", locals: {story: story} %>
 </div>

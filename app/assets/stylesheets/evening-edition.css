@@ -186,3 +186,14 @@ p {
 .talked-about {
   box-shadow: 0 0 20px yellow;
 }
+
+.save_button {
+  margin      : 0;
+  padding     : 0;
+  border      : 0;
+  background  : transparent;
+  font-family : inherit;
+  font-size   : 1em;
+  cursor      : pointer;
+  color: red;
+}
