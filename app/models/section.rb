@@ -15,7 +15,7 @@ class Section < ActiveRecord::Base
   end
 
   def todays_stories
-    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC").limit(14)
+    recent_stories = stories.where("stories.updated_at > now() - interval '1 day'").order("stories.id DESC")
     assign_sizes(order_stories(recent_stories))
   end
 
@@ -77,8 +77,10 @@ class Section < ActiveRecord::Base
     ordered_stories.each_with_index do |story, i|
       if (i % 13 == 0 || i % 13 == 4 || i % 13 == 8) && !with_img.empty?
         ordered_stories[i] = with_img.pop
-      else
+      elsif !without_img.empty?
         ordered_stories[i] = without_img.pop
+      else
+        ordered_stories[i] = with_img.pop
       end
     end
     ordered_stories
