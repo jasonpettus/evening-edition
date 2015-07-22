@@ -1,4 +1,4 @@
-<div class="list-left gray-box">
+<div class="list-left section-box">
   <span class="vertical-center">
     <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline') do %>
       <%= submit_tag 'Delete' %>
@@ -13,8 +13,6 @@
   </span>
 </div>
 
-
-<!-- I don't know why this div isn't closed, but it makes the styling work. When the div closes the styling breaks fantastically -->
 <div class="pd-2">
   <p>
     <%= form_for @subscription, url: "/sections/#{section.id}/subscriptions", method: 'POST' do |f| %>

@@ -33,6 +33,8 @@ gem 'fastimage'
 gem 'mechanize'
 gem 'htmlentities'
 
+# Use Kaminari to generate pagination links at bottom of pages
+gem 'kaminari'
 
 
 gem 'text'
@@ -61,7 +63,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
 
-  # Use Kaminari to generate pagination links at bottom of pages
-  gem 'kaminari'
+
 end
 

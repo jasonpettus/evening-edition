@@ -1,16 +1,14 @@
-<div class="subscription">
-  <p class="list-left">
-    <span class="vertical-center">
-      <%= form_tag(section_subscription_path(section, subscription), method: :delete, class: 'inline delete-subscription') do %>
-        <%= submit_tag 'Delete' %>
-      <% end %>
-      <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline edit-subscription') do %>
-        <%= submit_tag 'Rename' %>
-      <% end %>
-    </span>
+<div class="subscription list-left feed-box">
+  <span class="vertical-center">
+    <%= form_tag(section_subscription_path(section, subscription), method: :delete, class: 'inline delete-subscription') do %>
+      <%= submit_tag 'Delete' %>
+    <% end %>
+    <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline edit-subscription') do %>
+      <%= submit_tag 'Rename' %>
+    <% end %>
+  </span>
 
-    <span class="mdl-typography--title inline">
-      <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
-    </span>
-  </p>
+  <span class="mdl-typography--title inline">
+    <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
+  </span>
 </div>

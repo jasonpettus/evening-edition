@@ -10,12 +10,10 @@
     <% @sections.each do |section| %>
       <%= render partial: 'sections/section', locals: { section: section } %>
 
-
       <% section.subscriptions.each do |subscription| %>
         <%= render partial: 'subscriptions/subscription', locals: { section: section, subscription: subscription } %>
       <% end %>
       </div>
-
     <% end %>
   </div>
 </div>
