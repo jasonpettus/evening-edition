@@ -11,11 +11,14 @@ function favorite_post(event){
     data: $form.serialize()
   });
 
-  if($form.children('#favorited') == true){
-    $form.find('#favorited').val(false);
-    $form.find('.save_button').val(' | Save');
-  }else{
-    $form.find('#favorited').val(true);
+  if($form.find('#favorited').val() == "true"){
+    $form.find('#favorited').val("false");
     $form.find('.save_button').val(' | Unsave');
+  }else{
+    $form.find('#favorited').val("true");
+    $form.find('.save_button').val(' | Save');
+    if(window.location.pathname == '/sections/favorites'){
+      $form.parentsUntil('.mdl-grid').last().remove();
+    };
   }
 }
