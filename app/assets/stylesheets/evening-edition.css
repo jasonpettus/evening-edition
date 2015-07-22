@@ -182,3 +182,7 @@ p {
   padding: 0.5em;
   margin: 0.5em 0 0.5em 0;
 }
+
+.talked-about {
+  box-shadow: 0 0 20px yellow;
+}
