@@ -1,5 +1,5 @@
 <% if session['creation_error'] %>
-  <p><%= Password confirmation did not match %></p>
+  <p class="center bold mdl-color--deep-purple-500 mdl-color-text--red-A700">There was an error when creating your account</p>
 <% end %>
 
 <%= render partial: "users/user_form", locals: { user: @user} %>

@@ -41,7 +41,7 @@ class SubscriptionsController < ApplicationController
 		if request.xhr?
 			render nothing: true
 		else
-		redirect_to :back
+			redirect_to :back
 		end
 	end
 

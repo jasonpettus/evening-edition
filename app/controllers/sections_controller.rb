@@ -18,7 +18,7 @@ class SectionsController < ApplicationController
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
-      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
+      @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(26)
       if @active_section.stories.empty?
         @active_section.cluster_similar_stories
       end
@@ -40,6 +40,12 @@ class SectionsController < ApplicationController
     end
 	end
 
+  def favorites
+    @stories = Kaminari.paginate_array(current_user.favorited_stories).page(params[:page]).per(26)
+    @page_name = "Saved Articles"
+    render :show
+  end
+
   #literally everything after here is subject to change based on the views
 
   def new
@@ -53,13 +59,13 @@ class SectionsController < ApplicationController
       if request.xhr?
         render partial: 'sections/section', locals: { section: @section }
       else
-        redirect_to :index
+        redirect_to sections_path
       end
     else
       if request.xhr?
-        redirect_to :index
+        redirect_to sections_path
       else
-        redirect_to :index
+        redirect_to sections_path
       end
     end
   end
@@ -68,21 +74,32 @@ class SectionsController < ApplicationController
     @sections = current_user.sections
     @section = Section.find(params[:id])
     @page_name = "Rename Section"
-    @subscriptions = @section.subscriptions
+    if request.xhr?
+      render :edit, layout: false
+    end
   end
 
   def update
     @section = Section.find(params[:id])
     if @section.update_attributes(section_params)
-      redirect_to sections_url
+      if request.xhr?
+        render nothing: true
+      else
+        redirect_to sections_url
+      end
     else
       render :edit
     end
   end
 
   def destroy
+    p 'DESTROY DESTROY'
     Section.find(params[:id]).destroy
-    redirect_to :back
+    if request.xhr?
+      render nothing: true
+    else
+      redirect_to :back
+    end
   end
 
   private

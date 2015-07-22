@@ -1,17 +1,8 @@
 $(document).ready(function(){
-  $('.mdl-layout__container').on('click','.mdl-navigation__link', function(event){
-    alert("STOP");
-    event.preventDefault();
-    var url =$(this).attr("href");
-    console.log("lorg: ", url);
-
-    var ajax = $.get(url).done(
-      function(response){
-        console.log("from server", response);
-      });
-    });
-
   $(document).on('submit', '.new_section', submitNewSection)
+  $(document).on('submit', '.delete-section', deleteSection)
+  $(document).on('submit', '.rename-section', showRenameForm)
+  $(document).on('submit', '.edit_section', renameSection)
 });
 
 function submitNewSection(event){
@@ -24,5 +15,43 @@ function submitNewSection(event){
   }).done(function(response){
     $form.after(response)
     $form.children(':text').val('')
+  });
+};
+
+function deleteSection(event){
+  event.preventDefault();
+  var $form = $(event.target)
+  $.ajax({
+    method: "DELETE",
+    url: $form.attr('action'),
+  }).done(function(response){
+    $form.parents('.section-box').next('.pd-2').remove();
+    $form.parents('.section-box').remove();
+  });
+};
+
+function showRenameForm(){
+  event.preventDefault();
+  var $form = $(event.target);
+  $.ajax({
+    method: 'GET',
+    url: $form.attr('action')
+  }).done(function(response){
+    $form.parents('.section-box').children().hide();
+    $form.parents('.section-box').append(response);
+  });
+};
+
+function renameSection(){
+  event.preventDefault();
+  var $form = $(event.target);
+  $.ajax({
+    method: 'PUT',
+    url: $form.attr('action'),
+    data: $form.serialize()
+  }).done(function(response){
+    $form.parents('.section-box').children().show()
+    $form.parents('.section-box').find('a').html($form.children(':text').val())
+    $form.parent().parent().remove()
   });
 };
