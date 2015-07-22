@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show', as: :user
   put 'story/:id' => 'stories#update', as: :favorite_stories
   patch 'story/:id' => 'stories#update'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
