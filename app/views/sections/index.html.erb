@@ -1,53 +1,18 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--4-col-phone round mdl-cell--8-col center-box pd-4">
     <p>
-      <%= form_for @section do |f| %>
+      <%= form_for @section, method: 'POST' do |f| %>
         <%= f.text_field :title, class: 'list-left w-50', placeholder: 'Section name' %>
         <%= f.submit value: 'Add Section', class: 'inline fl-r' %>
       <% end %>
     </p>
 
     <% @sections.each do |section| %>
-      <div class="list-left gray-box">
-        <span class="vertical-center">
-          <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline') do %>
-            <%= submit_tag 'Delete' %>
-          <% end %>
-          <%= form_tag(edit_section_path( section ), method: :get, class: 'inline') do %>
-            <%= submit_tag 'Rename' %>
-          <% end %>
-        </span>
+      <%= render partial: 'sections/section', locals: { section: section } %>
 
-        <span class="mdl-typography--display-2 inline">
-          <%= link_to "#{ section.title }", section_subscriptions_path( section ) %>
-        </span>
-      </div>
-
-
-      <div class="pd-2">
-        <p>
-          <%= form_for @subscription, url: "/sections/#{section.id}/subscriptions/#{@subscription.id}" do |f| %>
-            <%= f.text_field :name, class: 'list-left w-50', placeholder: 'Subscription Name' %>
-            <%= f.text_field :feed, class: 'list-left w-50', placeholder: 'RSS feed' %>
-            <%= f.submit value: 'Add Feed', class: 'inline fl-r' %>
-        </p>
-      <% end %>
 
       <% section.subscriptions.each do |subscription| %>
-        <p class="list-left">
-          <span class="vertical-center">
-            <%= form_tag("/subscriptions/#{ subscription.id }", method: :delete, class: 'inline') do %>
-              <%= submit_tag 'Delete' %>
-            <% end %>
-            <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline') do %>
-              <%= submit_tag 'Rename' %>
-            <% end %>
-          </span>
-
-          <span class="mdl-typography--title inline">
-            <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
-          </span>
-        </p>
+        <%= render partial: 'subscriptions/subscription', locals: { section: section, subscription: subscription } %>
       <% end %>
       </div>
 

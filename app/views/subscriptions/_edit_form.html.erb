@@ -1,0 +1,6 @@
+<div class="section_box subscription-edit-form"><p>
+  <%= form_for subscription, url: section_subscription_path(subscription.section, subscription) do |f| %>
+    <%= f.text_field :name, value: subscription.name, placeholder: 'Subscription name' %>
+    <%= f.submit value: 'Rename' %>
+  <% end %>
+</p></div>
