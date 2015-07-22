@@ -24,9 +24,13 @@ class Section < ActiveRecord::Base
     articles = articles.map { |x| x }
     clusters = []
     while articles.length > 0
+      # p "articleslength: #{articles.length}"
+      # p articles[-1]
+      # p articles[-1].is_similar_to?(articles[-1])
       n = 0
       clusters << []
       while n < articles.length
+        # p "n: #{n}"
         if articles[n].is_similar_to?(articles[-1])
           clusters[-1] << articles.delete_at(n)
         else
@@ -43,7 +47,7 @@ class Section < ActiveRecord::Base
       stories.create(preferred_story: story_cluster[0], articles: story_cluster)
     end
     get_imgs(story_clusters)
-    assign_sizes(ordered_stories(story_cluster))
+    assign_sizes(order_stories(story_clusters)) 
     # Split stories into groups with images and without images
     # build an array of size groups out of those
     # shuffle then flatten?
@@ -65,11 +69,11 @@ class Section < ActiveRecord::Base
     end
   end
 
-  def order_stories(story_cluster)
-    with_img = story_cluster.select { |story| story.has_image? }
-    without_img = story_cluster.reject { |story| story.has_image? }
+  def order_stories(story_clusters)
+    with_img = story_clusters.select { |story| story.has_image? }
+    without_img = story_clusters.reject { |story| story.has_image? }
 
-    ordered_stories = Array.new(story_cluster.length)
+    ordered_stories = Array.new(story_clusters.length)
     ordered_stories.each_with_index do |story, i|
       if (i % 13 == 0 || i % 13 == 4 || i % 13 == 8) && !with_img.empty?
         ordered_stories[i] = with_img.pop
