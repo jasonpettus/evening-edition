@@ -1,7 +1,8 @@
 <div class="mdl-cell mdl-cell--8-col-phone round mdl-cell--8-col">
-  <% if story.other_sources.count > 0 %>
-    <%= render partial: "application/more_button", locals: {story: story} %>
-  <% end %>
+	<%= image_tag(story.preferred_story.img_link, width: '200', class: "med_box_image fl-r") %>
+  
+  <%= render partial: "application/more_button", locals: {story: story} %>
+  
 
   <%= render partial: "application/more_button", locals: {story: story} %>
 
