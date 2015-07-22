@@ -26,34 +26,36 @@ function deleteSubscription(event){
     url: $form.attr('action'),
     data: $form.serialize()
   }).done(function(response){
-    $form.parent().remove()
+    $form.parents('.feed-box').first().remove()
   });
 };
 
 function createEditSubscriptionForm(event){
   event.preventDefault();
   $form = $(event.target)
+  $formParent = $form.parent()
   $.ajax({
     url: $form.attr('action'),
     method: 'GET'
   }).done(function(response){
-      $form.siblings().hide();
-      $form.after(response);
-      $form.siblings('div').find(':text').focus();
-      $form.hide();
+      $formParent.siblings().hide();
+      $formParent.after(response);
+      $formParent.siblings('div').find(':text').focus();
+      $formParent.hide();
     });
 };
 
 function renameSubscription(event){
   event.preventDefault();
   $form = $(event.target)
+  $formParent = $form.parent()
   $.ajax({
     url: $form.attr('action'),
     method: 'PATCH',
     data: $form.serialize()
   }).done(function(response){
-    $form.parent().siblings().show()
-    $form.parent().siblings('span').html($form.children(':text').val())
-    $form.parent().remove()
+    $formParent.siblings().show()
+    $formParent.next().children('a').html($form.children(':text').val())
+    $formParent.remove()
   });
 };
