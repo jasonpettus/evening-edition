@@ -1,0 +1,12 @@
+<% stories.each do |story| %>
+  <% case story.size %>
+    <% when "splash" %>
+      <%= render partial: "application/article_splash", locals: { story: story } %>
+    <% when "big" %>
+      <%= render partial: "application/article_big", locals: { story: story } %>
+    <% when "medium" %>
+      <%= render partial: "application/article_medium", locals: { story: story } %>
+    <% when "small" %>
+      <%= render partial: "application/article_small", locals: { story: story } %>
+  <% end %>
+<% end %>

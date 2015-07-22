@@ -2,12 +2,17 @@ class UsersController < ApplicationController
 
   def login
     user = User.find_by(email: params['email'])
-    if user.authenticate(params['password'])
+    if user && user.authenticate(params['password'])
       login_user(user)
-      redirect_to :back
+      session['login_error'] = false
     else
       session['login_error'] = true
-      render :back
+    end
+
+    if request.xhr?
+      render partial: 'application/masthead'
+    else
+      redirect_to :back
     end
   end
 
@@ -22,6 +27,7 @@ class UsersController < ApplicationController
       login_user(@user)
       redirect_to new_section_path
     else
+      @page_name = "Create Account"
       render 'new'
     end
   end
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
     def login_user(user)

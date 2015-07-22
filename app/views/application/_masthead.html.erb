@@ -10,7 +10,7 @@
   <div class="login mdl-color--orange-900">
     <span class="mdl-typography--caption">
       <% if user_logged_in? %>
-        Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path, method: :delete %>
+        Personalized for <%= current_user.email %> / <%= link_to "Log out", users_logout_path, method: :delete, id: 'logout-link' %>
       <% else %>
         Updated each day at 5 pm Chicago local time.<br>
         Members receive personalized subscriptions, sections, and delivery times.
