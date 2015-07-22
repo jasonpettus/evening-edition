@@ -1,7 +1,11 @@
 <% if user_logged_in? %>
-
-  <%= form_tag(favorite_stories_path( story.id ), method: :get, value: "true", class: 'inline') do %>
-    <%= submit_tag ' | Save', class: 'save_button' %>
+  <% if story.favorited == "true" %>
+    <%= form_tag(favorite_stories_path( story.id ), method: :get, value: "false", class: 'inline') do %>
+      <%= submit_tag ' | Unsave', class: 'save_button' %>
+    <% end %>
+  <% else %>
+    <%= form_tag(favorite_stories_path( story.id ), method: :get, value: "true", class: 'inline') do %>
+      <%= submit_tag ' | Save', class: 'save_button' %>
+    <% end %>
   <% end %>
-
 <% end %>
