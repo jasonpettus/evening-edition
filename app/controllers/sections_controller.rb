@@ -75,8 +75,13 @@ class SectionsController < ApplicationController
   end
 
   def destroy
+    p 'DESTROY DESTROY'
     Section.find(params[:id]).destroy
-    redirect_to :back
+    if request.xhr?
+      render nothing: true
+    else
+      redirect_to :back
+    end
   end
 
   private

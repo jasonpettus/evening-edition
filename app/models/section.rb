@@ -1,6 +1,6 @@
 class Section < ActiveRecord::Base
 	belongs_to	:user
-  has_many  :subscriptions, dependent: :destroy
+  has_many  :subscriptions, dependent: :delete_all
   has_many :stories
   has_many :articles, through: :subscriptions
 
@@ -47,7 +47,7 @@ class Section < ActiveRecord::Base
       stories.create(preferred_story: story_cluster[0], articles: story_cluster)
     end
     get_imgs(story_clusters)
-    assign_sizes(order_stories(story_clusters)) 
+    assign_sizes(order_stories(story_clusters))
     # Split stories into groups with images and without images
     # build an array of size groups out of those
     # shuffle then flatten?

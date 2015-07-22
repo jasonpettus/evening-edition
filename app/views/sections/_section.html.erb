@@ -1,9 +1,9 @@
 <div class="list-left section-box">
   <span class="vertical-center">
-    <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline') do %>
+    <%= form_tag("/sections/#{ section.id }", method: :delete, class: 'inline delete-section') do %>
       <%= submit_tag 'Delete' %>
     <% end %>
-    <%= form_tag(edit_section_path( section ), method: :get, class: 'inline') do %>
+    <%= form_tag(edit_section_path( section ), method: :get, class: 'inline rename-section') do %>
       <%= submit_tag 'Rename' %>
     <% end %>
   </span>
