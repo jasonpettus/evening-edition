@@ -169,7 +169,15 @@ p {
 
 .gray-box {
   position: relative;
+  background-color: DarkGray;
+  vertical-align: bottom;
+  padding: 0.5em;
+}
+
+.feed-box {
+  position: relative;
   background-color: LightGray;
   vertical-align: bottom;
   padding: 0.5em;
+  margin-bottom: 0.5em;
 }

@@ -30,27 +30,26 @@
             <%= f.text_field :name, class: 'list-left w-50', placeholder: 'Subscription Name' %>
             <%= f.text_field :feed, class: 'list-left w-50', placeholder: 'RSS feed' %>
             <%= f.submit value: 'Add Feed', class: 'inline fl-r' %>
-        </p>
-      <% end %>
-
-      <% section.subscriptions.each do |subscription| %>
-        <p class="list-left">
-          <span class="vertical-center">
-            <%= form_tag("/subscriptions/#{ subscription.id }", method: :delete, class: 'inline') do %>
-              <%= submit_tag 'Delete' %>
             <% end %>
-            <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline') do %>
-              <%= submit_tag 'Rename' %>
-            <% end %>
-          </span>
-
-          <span class="mdl-typography--title inline">
-            <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
-          </span>
         </p>
-      <% end %>
+
+        <% section.subscriptions.each do |subscription| %>
+          <div class="list-left feed-box">
+            <span class="vertical-center">
+              <%= form_tag("/sections/#{ section.id }/subscriptions/#{ subscription.id }", method: :delete, class: 'inline') do %>
+                <%= submit_tag 'Delete' %>
+              <% end %>
+              <%= form_tag(edit_section_subscription_path( section, subscription ), method: :get, class: 'inline') do %>
+                <%= submit_tag 'Rename' %>
+              <% end %>
+            </span>
+
+            <span class="mdl-typography--title inline">
+              <%= link_to subscription.name, section_subscription_path( section, subscription ) %>
+            </span>
+          </div>
+        <% end %>
       </div>
-
     <% end %>
   </div>
 </div>

@@ -9,12 +9,13 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.create(subscription_params)
 		@subscription.update_attributes(section: @section, feed: Feed.first_or_create(feed_url: params['subscription']['feed']))
 		if @subscription.valid?
-			redirect_to section_path(@section)
+			redirect_to :back
 		end
 	end
 
-	def delete
+	def destroy
 		Subscription.find_by(id: params[:id]).destroy
+		redirect_to :back
 	end
 
 	private
