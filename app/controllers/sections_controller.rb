@@ -55,7 +55,7 @@ class SectionsController < ApplicationController
   def create
     @section = current_user.sections << Section.create(section_params)
     @subscription = Subscription.new
-    if @section.valid?
+    if @section
       if request.xhr?
         render partial: 'sections/section', locals: { section: @section }
       else

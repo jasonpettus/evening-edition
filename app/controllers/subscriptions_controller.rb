@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
 		@section = Section.find_by(id: params[:section_id])
 		@subscription = Subscription.create(subscription_params)
 		@feed = Feed.create(feed_url: params['subscription']['feed'])
-		@subscription.update_attributes(section: @section, assign_feed: @feed)
+		@subscription.update_attributes(section: @section, feed: @feed)
 		if @subscription.valid?
 			if request.xhr?
 				render partial: 'subscriptions/subscription', locals: { section: @section, subscription: @subscription }
