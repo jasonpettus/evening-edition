@@ -34,6 +34,11 @@ class SectionsController < ApplicationController
     end
 	end
 
+  def favorites
+    @stories = Kaminari.paginate_array(current_user.favorited_stories).page(params[:page]).per(26)
+    render :show
+  end
+
   #literally everything after here is subject to change based on the views
 
   def new

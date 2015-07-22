@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'sections/favorites' => 'sections#favorites', as: :favorites
+
   resources :sections do
     resources :subscriptions do
       resources :articles
