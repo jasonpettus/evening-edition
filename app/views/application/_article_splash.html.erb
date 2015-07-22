@@ -6,6 +6,8 @@
     <span class="mdl-typography--headline mdl-color-text--white"><%= story.preferred_story.summary %></span><br>
     <span class="mdl-typography--headline mdl-color-text--grey-500"><%= story.preferred_story.news_source(story.section_id) %></span>
 
+    <%= render partial: "application/save_button", locals: {story: story} %>
+
     <%= render partial: "application/related", locals: {story: story} %>
   </div>
 </div>
