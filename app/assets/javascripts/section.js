@@ -1,6 +1,8 @@
 $(document).ready(function(){
   $(document).on('submit', '.new_section', submitNewSection)
   $(document).on('submit', '.delete-section', deleteSection)
+  $(document).on('submit', '.rename-section', showRenameForm)
+  $(document).on('submit', '.edit_section', renameSection)
 });
 
 function submitNewSection(event){
@@ -26,4 +28,30 @@ function deleteSection(event){
     $form.parents('.section-box').next('.pd-2').remove();
     $form.parents('.section-box').remove();
   });
-}
+};
+
+function showRenameForm(){
+  event.preventDefault();
+  var $form = $(event.target);
+  $.ajax({
+    method: 'GET',
+    url: $form.attr('action')
+  }).done(function(response){
+    $form.parents('.section-box').children().hide();
+    $form.parents('.section-box').append(response);
+  });
+};
+
+function renameSection(){
+  event.preventDefault();
+  var $form = $(event.target);
+  $.ajax({
+    method: 'PUT',
+    url: $form.attr('action'),
+    data: $form.serialize()
+  }).done(function(response){
+    $form.parents('.section-box').children().show()
+    $form.parents('.section-box').find('a').html($form.children(':text').val())
+    $form.parent().parent().remove()
+  });
+};

@@ -47,13 +47,13 @@ class SectionsController < ApplicationController
       if request.xhr?
         render partial: 'sections/section', locals: { section: @section }
       else
-        redirect_to :index
+        redirect_to sections_path
       end
     else
       if request.xhr?
-        redirect_to :index
+        redirect_to sections_path
       else
-        redirect_to :index
+        redirect_to sections_path
       end
     end
   end
@@ -62,13 +62,19 @@ class SectionsController < ApplicationController
     @sections = current_user.sections
     @section = Section.find(params[:id])
     @page_name = "Rename Section"
-    @subscriptions = @section.subscriptions
+    if request.xhr?
+      render :edit, layout: false
+    end
   end
 
   def update
     @section = Section.find(params[:id])
     if @section.update_attributes(section_params)
-      redirect_to sections_url
+      if request.xhr?
+        render nothing: true
+      else
+        redirect_to sections_url
+      end
     else
       render :edit
     end
