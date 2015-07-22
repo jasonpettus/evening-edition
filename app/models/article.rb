@@ -32,14 +32,16 @@ class Article < ActiveRecord::Base
   def strip_ads
     decoder =  HTMLEntities.new
     unless summary.nil?
-      stripped_summary = summary.gsub(/<img.*?>/m,"").gsub(/<.*?<\/.*?>/m,"")
+      stripped_summary = summary.gsub(/(<[^>]*>)|\n|\t/,"")
       decoded_summary = decoder.decode(stripped_summary)
 
-      self.summary = decoded_summary.split(" ").slice(0..20).push("...").join(" ")
+      if self.summary.length > 20
+        self.summary = decoded_summary.split(" ").slice(0..20).push("...").join(" ")
+      end
     end
 
     unless title.nil?
-      stripped_title = title.gsub(/<.*?<\/.*?>/m,"")
+      stripped_title = title.gsub(/(<[^>]*>)|\n|\t/,"")
       decoded_title = decoder.decode(stripped_title)
       self.title = decoded_title
     end
