@@ -3,7 +3,7 @@
     <%= render partial: "application/article_#{ story.size }", locals: { story: story } %>
   <% end %>
 
-  <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone round center" id="paginator">
+  <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone round center button-height" id="paginator">
     <%= paginate @stories %>
   </div>
 </div>
