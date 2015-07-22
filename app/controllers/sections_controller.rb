@@ -12,10 +12,16 @@ class SectionsController < ApplicationController
 	def show
     if user_logged_in?
       @active_section = Section.find_by(id: params[:id]) || Section.find_by(title: 'Default')
+      puts ">" * 50
+      p @active_section
+      puts ">" * 50
       @sections = current_user.sections
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
       @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(25)
+      if @active_section.stories.empty?
+        @active_section.cluster_similar_stories
+      end
       respond_to do |format|
         format.js { render text: "HELLO!"}
         format.html
@@ -41,9 +47,9 @@ class SectionsController < ApplicationController
   end
 
   def create
-    @section = current_user.sections.build(section_params)
+    @section = current_user.sections << Section.create(section_params)
     @subscription = Subscription.new
-    if @section.save
+    if @section.valid?
       if request.xhr?
         render partial: 'sections/section', locals: { section: @section }
       else
