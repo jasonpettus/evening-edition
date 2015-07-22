@@ -5,14 +5,16 @@ $(document).ready(function(){
 
 function showSignupForm(event){
   event.preventDefault();
-  var ajax = $.ajax({
-    method: 'GET',
-    url: '/users/new'
-  }).done(function(response, status){
-    $(".page-content").prepend(response);
-    $(".mdl-grid").remove();
-    $("#banner").text("Create Account")
-  });
+  if ($(".form_box").size() == 0){
+    var ajax = $.ajax({
+      method: 'GET',
+      url: '/users/new'
+    }).done(function(response, status){
+      $(".page-content").prepend(response);
+      $(".mdl-grid").remove();
+      $("#banner").text("Create Account")
+    });
+  }
 };
 
 function submitNewAccount(event){
