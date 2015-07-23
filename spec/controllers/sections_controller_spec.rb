@@ -15,7 +15,7 @@ RSpec.describe SectionsController, type: :controller do
   end
 
   describe '#show' do
-    it 'when no user, it should render the default page' do
+    pending 'when no user, it should render the default page' do
       get :show, {}, { user_id: nil }
       expect(page).to render('sections/default')
     end
