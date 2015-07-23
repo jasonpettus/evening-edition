@@ -13,8 +13,16 @@ function createNewSubscription(event){
     url: $form.attr('action'),
     data: $form.serialize()
   }).done(function(response){
-    $form.after(response);
-    $form.children(":text").val('')
+    $form.next('.errors').remove()
+    if (typeof response === "string"){
+      $form.after(response);
+      $form.children(":text").val('')
+    } else {
+      $form.after('<div class= "list-left feed-box errors"></div>')
+      for(var n=0; n<response.length; n++){
+        $form.next().append('<p class = "center bold mdl-color--deep-purple-500 mdl-color-text--black-A700">' + response[n] + '</p>')
+      }
+    }
   });
 };
 
@@ -54,8 +62,15 @@ function renameSubscription(event){
     method: 'PATCH',
     data: $form.serialize()
   }).done(function(response){
-    $formParent.siblings().show()
-    $formParent.next().children('a').html($form.children(':text').val())
-    $formParent.remove()
+    if(response){
+      $form.siblings('.errors').remove()
+      for(var n =0; n < response.length; n++){
+        $form.before('<p class= "errors center bold mdl-color--deep-purple-500 mdl-color-text--black-A700">' + response[n] +'</p>')
+      }
+    } else {
+      $formParent.siblings().show();
+      $formParent.next().children('a').html($form.children(':text').val());
+      $formParent.remove();
+    }
   });
 };

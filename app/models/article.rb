@@ -49,7 +49,10 @@ class Article < ActiveRecord::Base
   end
 
   def news_source(section_id)
-    subscriptions.where("section_id = #{section_id}").first.name
+    linked_subscriptions = subscriptions.where("section_id = #{section_id}")
+    unless linked_subscriptions.empty?
+      linked_subscriptions.first.name
+    end
   end
 
   private

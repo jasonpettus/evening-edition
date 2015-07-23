@@ -55,7 +55,7 @@ class SectionsController < ApplicationController
       end
     else
       if request.xhr?
-        redirect_to sections_path
+        render json: @section.errors.full_messages
       else
         redirect_to sections_path
       end
@@ -80,7 +80,11 @@ class SectionsController < ApplicationController
         redirect_to sections_url
       end
     else
-      render :edit
+      if request.xhr?
+
+      else
+        redirect_to sections_url
+      end
     end
   end
 
