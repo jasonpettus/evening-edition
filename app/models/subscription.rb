@@ -9,7 +9,7 @@ class Subscription < ActiveRecord::Base
 	belongs_to 	:section
 	belongs_to  :feed
 
-  validates :name, presence: :true
+  validates :name, presence: :true, uniqueness: { scope: :section }
   validates :feed, presence: :true
   validates_associated :feed
 
