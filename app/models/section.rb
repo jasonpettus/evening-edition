@@ -22,9 +22,6 @@ class Section < ActiveRecord::Base
     articles = articles.map { |x| x }
     clusters = []
     while articles.length > 0
-      # p "articleslength: #{articles.length}"
-      # p articles[-1]
-      # p articles[-1].is_similar_to?(articles[-1])
       n = 0
       clusters << []
       while n < articles.length

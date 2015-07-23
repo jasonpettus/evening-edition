@@ -19,15 +19,17 @@ function showSignupForm(event){
 
 function submitNewAccount(event){
   event.preventDefault();
+  $form = $(event.target);
   var ajax = $.ajax({
     method: 'POST',
     url: '/users',
-    data: $(event.target).serialize()
+    data: $form.serialize()
   }).done(function(response, status){
     if (response.redirect) {
       window.location.href = response.redirect
     } else {
-
-    }
+      $form.parent().siblings('p').remove()
+      $form.parent().before(response)
+    };
   });
 };
