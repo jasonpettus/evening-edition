@@ -9,6 +9,10 @@ class Subscription < ActiveRecord::Base
 	belongs_to 	:section
 	belongs_to  :feed
 
+  validates :name, presence: :true
+  validates :feed, presence: :true
+  validates_associated :feed
+
 	def assign_feed=(feed_url)
 		self.feed = Feed.where(feed_url: feed_url).first_or_create
 	end

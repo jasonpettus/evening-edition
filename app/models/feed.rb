@@ -4,6 +4,8 @@ class Feed < ActiveRecord::Base
 	has_many	:subscriptions
 	has_many 	:articles
 
+	validates :feed_url, { presence: true, uniqueness: true }
+
 	after_create	:get_articles
 
 	def get_articles

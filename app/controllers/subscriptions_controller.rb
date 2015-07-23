@@ -4,15 +4,24 @@ class SubscriptionsController < ApplicationController
 	end
 
 	def create
-		p params
 		@section = Section.find_by(id: params[:section_id])
-		@subscription = Subscription.create(subscription_params)
-		@subscription.update_attributes(section: @section, feed: Feed.first_or_create(feed_url: params['subscription']['feed']))
-		if @subscription.valid?
+		@subscription = Subscription.new(subscription_params)
+		begin
+			@subscription.assign_attributes(section: @section, feed: Feed.find_or_create_by(feed_url: params['subscription']['feed']))
+		rescue NoMethodError
+			@subscription.assign_attributes(section: @section, feed: Feed.new)
+		end
+		if @subscription.save
 			if request.xhr?
 				render partial: 'subscriptions/subscription', locals: { section: @section, subscription: @subscription }
 			else
-				redirect_to section_path(@section)
+				redirect_to sections_path
+			end
+		else
+			if request.xhr?
+				render json: @subscription.errors.full_messages
+			else
+				render "sections/index"
 			end
 		end
 	end
