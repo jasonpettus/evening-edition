@@ -19,9 +19,10 @@ class SectionsController < ApplicationController
     	@stories = @active_section.todays_stories
       @page_name = @active_section.title
       @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(26)
-      if @active_section.stories.empty?
-        @active_section.cluster_similar_stories
-      end
+      # @active_section.cluster_section_articles if @active_section.subscriptions.any? { |subscription| subscription.clustered == false}.clustered == false
+      # if @active_section.stories.empty? ||  #@active_section.stories.where("created_at < ?", @active_section.stories.last.created_at) #|| @active_section.stories.map(&:created_at).include?() #@active_section.feeds #@active_section.stories.empty?
+      #   # @active_section.cluster_similar_stories
+      # end
       respond_to do |format|
         format.js { render text: "HELLO!"}
         format.html

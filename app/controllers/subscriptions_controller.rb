@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.create(subscription_params)
 		@feed = Feed.create(feed_url: params['subscription']['feed'])
 		@subscription.update_attributes(section: @section, feed: @feed)
-		if @subscription.valid?
+		if @subscription.valid? && @feed.valid?
 			if request.xhr?
 				render partial: 'subscriptions/subscription', locals: { section: @section, subscription: @subscription }
 			else
