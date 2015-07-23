@@ -20,9 +20,9 @@ class SectionsController < ApplicationController
       @page_name = @active_section.title
       @stories = Kaminari.paginate_array(@stories).page(params[:page]).per(26)
       # @active_section.cluster_section_articles if @active_section.subscriptions.any? { |subscription| subscription.clustered == false}.clustered == false
-      # if @active_section.stories.empty? ||  #@active_section.stories.where("created_at < ?", @active_section.stories.last.created_at) #|| @active_section.stories.map(&:created_at).include?() #@active_section.feeds #@active_section.stories.empty?
-      #   # @active_section.cluster_similar_stories
-      # end
+      if @active_section.stories.empty?# ||  #@active_section.stories.where("created_at < ?", @active_section.stories.last.created_at) #|| @active_section.stories.map(&:created_at).include?() #@active_section.feeds #@active_section.stories.empty?
+        @active_section.cluster_similar_stories
+      end
       respond_to do |format|
         format.js { render text: "HELLO!"}
         format.html
@@ -55,9 +55,9 @@ class SectionsController < ApplicationController
   end
 
   def create
-    @section = current_user.sections << Section.create(section_params)
+    @section = current_user.sections.build(section_params)
     @subscription = Subscription.new
-    if @section
+    if @section.save
       if request.xhr?
         render partial: 'sections/section', locals: { section: @section }
       else
