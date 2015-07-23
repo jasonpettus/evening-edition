@@ -81,7 +81,7 @@ class SectionsController < ApplicationController
       end
     else
       if request.xhr?
-
+        render json: @section.errors.full_messages
       else
         redirect_to sections_url
       end
