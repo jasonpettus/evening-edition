@@ -9421,7 +9421,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   .mdl-cell--12-col-phone.mdl-cell--12-col-phone {
     width: calc(100% - 16px); }
     .mdl-grid--no-spacing > .mdl-cell--12-col-phone.mdl-cell--12-col-phone {
-      width: 100%; } */
+      width: 100%; }
 
   .mdl-typography--title {
     font-family: 'Lusitana', serif;
@@ -9445,7 +9445,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     font-family: 'Lusitana', serif;
     font-size: 28px;
     font-weight: 400;
-    opacity: 0.87; } }
+    opacity: 0.87; } } */
 
 /* --------------------------------------------- IPHONE ONLY */
 
