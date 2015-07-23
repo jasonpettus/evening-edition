@@ -6,11 +6,17 @@ class SubscriptionsController < ApplicationController
 	def create
 		@section = Section.find_by(id: params[:section_id])
 		@subscription = Subscription.new(subscription_params)
-		begin
-			@subscription.assign_attributes(section: @section, feed: Feed.find_or_create_by(feed_url: params['subscription']['feed']))
-		rescue NoMethodError
-			@subscription.assign_attributes(section: @section, feed: Feed.new)
-		end
+		# begin
+			p '*' * 50
+			p params
+			feedssssss = Feed.find_or_create_by(feed_url: params['subscription']['feed'])
+			p feedssssss
+			p '-' * 50
+			@subscription.assign_attributes(section: @section, feed: feedssssss)
+			p '*' *50
+		# rescue NoMethodError
+			# @subscription.assign_attributes(section: @section, feed: Feed.new)
+		# end
 		if @subscription.save
 			if request.xhr?
 				render partial: 'subscriptions/subscription', locals: { section: @section, subscription: @subscription }
