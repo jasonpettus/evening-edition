@@ -11,16 +11,14 @@ class Section < ActiveRecord::Base
   def cluster_similar_stories
     todays_articles = articles.where("articles.created_at > now() - interval '23 hour'")
     clusters = cluster_articles(todays_articles)
-    # subscriptions.each { |subscription| subscription.clustered = true }
     todays_stories = clusters_to_stories(clusters)
   end
 
-  # def cluster_section_articles
-  #   section_articles = articles
-  #   clusters = cluster_articles(section_articles)
-  #   subscriptions.each { |subscription| subscription.clustered = true }
-  #   section_stories = clusters_to_stories(clusters)
-  # end
+  def cluster_recent_articles
+    recent_articles = articles.where("articles.created_at > now() - interval '1 hour'").limit(5)
+    clusters = cluster_articles(recent_articles)
+    section_stories = clusters_to_stories(clusters)
+  end
 
   def todays_stories
     recent_stories = stories.where("stories.updated_at > now() - interval '23 hour'").order("stories.updated_at DESC").limit(169)
