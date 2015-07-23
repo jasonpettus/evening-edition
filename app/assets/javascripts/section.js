@@ -13,7 +13,9 @@ function submitNewSection(event){
     url: $form.attr('action'),
     data: $form.serialize()
   }).done(function(response){
+    var new_section_link = response.match(/href.*?\/a>/)
     $form.after(response)
+    $form.parentsUntil('.mdl-layout__container').last().find('nav').prepend('<li><a class="mdl-navigation__link" ' + new_section_link + '</li>')
     $form.children(':text').val('')
   });
 };
@@ -25,6 +27,12 @@ function deleteSection(event){
     method: "DELETE",
     url: $form.attr('action'),
   }).done(function(response){
+    var sidebarLinks = $form.parentsUntil('.mdl-layout__container').last().find('nav').children()
+    for(var n = 0; n < sidebarLinks.length; n++){
+      if ($(sidebarLinks[n]).children('a').html() == $form.parents('.section-box').find('a').html()){
+        sidebarLinks[n].remove();
+      };
+    };
     $form.parents('.section-box').next('.pd-2').remove();
     $form.parents('.section-box').remove();
   });
