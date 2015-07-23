@@ -9449,7 +9449,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 
 /* --------------------------------------------- IPHONE ONLY */
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio: 3), only screen and (device-aspect-ratio: 40/71), only screen and (device-aspect-ratio: 667/375), only screen and (device-aspect-ratio: 16/9) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio: 3), only screen and (device-aspect-ratio: 40/71), only screen and (device-aspect-ratio: 667/375) {
   .mdl-grid {
     padding: 8px; }
   .mdl-cell {
@@ -9558,91 +9558,91 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 
   .mdl-typography--title {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     font-weight: 700;
     line-height: 1.4em; }
 
   .mdl-typography--title-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     font-weight: 700;
     line-height: 1.4em;
     opacity: 0.87; }
 
   .mdl-typography--caption {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     font-weight: 400;
     line-height: 1.4em; }
 
   .mdl-typography--caption-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     font-weight: 400;
     line-height: 1.4em;
     opacity: 0.87; }
 
   .mdl-typography--body-1 {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 400; }
 
   .mdl-typography--body-1-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     font-weight: 400;
     line-height: 1.4em;
     opacity: 0.87; }
 
   .mdl-typography--display-3 {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 700; }
 
   .mdl-typography--display-3-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 700;
     opacity: 0.87; }
 
   .mdl-typography--display-2 {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     font-weight: 700;
     line-height: 1.4em; }
 
   .mdl-typography--display-2-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 5em;
+    font-size: 100px;
     font-weight: 700;
     line-height: 1.4em;
     opacity: 0.54; }
 
   .mdl-typography--display-1 {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     font-weight: 400;
     line-height: 1.4em; }
 
   .mdl-typography--display-1-color-contrast {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     font-weight: 400;
     line-height: 1.4em;
     opacity: 0.54; }
 
   .mdl-layout-title {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 700; }
 
   .mdl-navigation__link {
     font-family: 'Lusitana', serif;
-    font-size: 4em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 400; }
 
@@ -9652,7 +9652,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 
   .mdl-menu__item {
     font-family: 'Lusitana', serif;
-    font-size: 3em;
+    font-size: 100px;
     line-height: 1.4em;
     font-weight: 400;
     height: auto; } }
