@@ -12,6 +12,9 @@
             <%= link_to "#{ section.title }", section_path( section ), class: "mdl-navigation__link" %>
           </li>
         <% end %>
+          <li>
+            <%= link_to "Saved", favorites_path, class: "mdl-navigation__link" %>
+          </li>
       </nav>
     </div>
   </div>

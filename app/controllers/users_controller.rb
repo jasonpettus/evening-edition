@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if request.xhr?
       render partial: 'application/masthead'
     else
-      redirect_to :back
+      redirect_to '/sections'
     end
   end
 

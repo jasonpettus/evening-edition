@@ -41,6 +41,7 @@ class SectionsController < ApplicationController
 	end
 
   def favorites
+    @sections = current_user.sections
     @stories = Kaminari.paginate_array(current_user.favorited_stories).page(params[:page]).per(26)
     @page_name = "Saved Articles"
     render :show

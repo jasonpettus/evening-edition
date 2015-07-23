@@ -15,7 +15,7 @@ class Section < ActiveRecord::Base
   end
 
   def todays_stories
-    recent_stories = stories.where("stories.updated_at > now() - interval '23 hour'").order("stories.id DESC")
+    recent_stories = stories.where("stories.updated_at > now() - interval '23 hour'").order("stories.updated_at DESC").limit(169)
     assign_sizes(order_stories(recent_stories))
   end
 
@@ -46,6 +46,7 @@ class Section < ActiveRecord::Base
       # sort story_cluster so preferred stories are first
       stories.create(preferred_story: story_cluster[0], articles: story_cluster)
     end
+    story_clusters.reverse!
     get_imgs(story_clusters)
     assign_sizes(order_stories(story_clusters))
     # Split stories into groups with images and without images
