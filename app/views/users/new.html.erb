@@ -1,5 +1,7 @@
-<% if session['creation_error'] %>
-  <p class="center bold mdl-color--deep-purple-500 mdl-color-text--red-A700">There was an error when creating your account</p>
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+  <p class="center bold mdl-color--deep-purple-500 mdl-color-text--black-A700"><%= msg %></p>
+  <% end %>
 <% end %>
 
 <%= render partial: "users/user_form", locals: { user: @user} %>
