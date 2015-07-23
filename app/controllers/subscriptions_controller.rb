@@ -36,10 +36,18 @@ class SubscriptionsController < ApplicationController
 
 	def update
 		@subscription = Subscription.find(params[:id])
-		@subscription.update_attributes(subscription_params)
-		if @subscription.valid?
+		if @subscription.update_attributes(subscription_params)
 			if request.xhr?
 				render nothing: true
+			else
+				redirect_to "sections/index"
+			end
+		else
+			if request.xhr?
+				render json: @subscription.errors.full_messages
+			else
+				flash[:errors] = @subscription.errors.full_messages
+				redirect_to "sections/index"
 			end
 		end
 	end

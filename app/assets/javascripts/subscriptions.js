@@ -62,8 +62,15 @@ function renameSubscription(event){
     method: 'PATCH',
     data: $form.serialize()
   }).done(function(response){
-    $formParent.siblings().show()
-    $formParent.next().children('a').html($form.children(':text').val())
-    $formParent.remove()
+    if(response){
+      $form.siblings('.errors').remove()
+      for(var n =0; n < response.length; n++){
+        $form.before('<p class= "errors center bold mdl-color--deep-purple-500 mdl-color-text--black-A700">' + response[n] +'</p>')
+      }
+    } else {
+      $formParent.siblings().show();
+      $formParent.next().children('a').html($form.children(':text').val());
+      $formParent.remove();
+    }
   });
 };
