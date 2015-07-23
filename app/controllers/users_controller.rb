@@ -25,11 +25,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login_user(@user)
-      session['creation_error'] = false
       redirect_to sections_path
     else
       @page_name = "Create Account"
-      session['creation_error'] = false
       render 'new'
     end
   end
