@@ -9449,7 +9449,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 
 /* --------------------------------------------- IPHONE ONLY */
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 1136px), only screen and (device-aspect-ratio: 40/71), only screen and (device-aspect-ratio: 667/375), only screen and (device-aspect-ratio: 16/9) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio: 3), only screen and (device-aspect-ratio: 40/71), only screen and (device-aspect-ratio: 667/375), only screen and (device-aspect-ratio: 16/9) {
   .mdl-grid {
     padding: 8px; }
   .mdl-cell {
