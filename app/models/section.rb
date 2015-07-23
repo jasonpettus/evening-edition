@@ -4,9 +4,7 @@ class Section < ActiveRecord::Base
   has_many :stories
   has_many :articles, through: :subscriptions
 
-	validates	:title, uniqueness: { scope: :user }
-
-
+	validates	:title, uniqueness: { scope: :user }, presence: true
 
   def cluster_similar_stories
     todays_articles = articles.where("articles.created_at > now() - interval '23 hour'")
