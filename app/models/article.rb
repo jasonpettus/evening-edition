@@ -33,10 +33,11 @@ class Article < ActiveRecord::Base
     decoder =  HTMLEntities.new
     unless summary.nil?
       stripped_summary = summary.gsub(/(<[^>]*>)|\n|\t/,"")
-      decoded_summary = decoder.decode(stripped_summary)
+      self.summary = decoder.decode(stripped_summary)
+      split_summary = self.summary.split(' ')
 
-      if self.summary.length > 20
-        self.summary = decoded_summary.split(" ").slice(0..20).push("...").join(" ")
+      if split_summary.length > 20
+        self.summary = split_summary.slice(0..19).push("...").join(" ")
       end
     end
 
