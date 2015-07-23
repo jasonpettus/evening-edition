@@ -22,9 +22,6 @@ class SectionsController < ApplicationController
       end
     else
       @section = Section.find_by(title: 'Default')
-      # @stories = @section.todays_stories
-      # @stories = @section.todays_stories.page(params[:page])
-      # @stories = @section.todays_stories.limit(25).page(params[:page])
       @stories = Kaminari.paginate_array(@section.todays_stories).page(params[:page]).per(13)
       @page_name = "Top Stories"
       respond_to do |format|
