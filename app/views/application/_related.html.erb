@@ -1,6 +1,6 @@
 <ul for="<%= story.preferred_story.id %>" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
   <p class="mdl-menu__item">Related:</p>
   <% story.other_sources.each do |related| %>
-    <li class="mdl-menu__item mdl-color-text--grey-500"><%= related.news_source(story.section_id) %>--<span class=""><%= link_to related.title.split(" ").slice(0..5).push("...").join(" "), related.url %></span></li>
+    <li class="mdl-menu__item mdl-color-text--grey-500"><%= related.news_source(story.section_id) %>--<span class=""><%= link_to related.title.split(" ").slice(0..5).push("...").join(" "), related.url, target: "_blank" %></span></li>
   <% end %>
 </ul>
