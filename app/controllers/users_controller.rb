@@ -4,9 +4,8 @@ class UsersController < ApplicationController
     user = User.find_by(email: params['email'])
     if user && user.authenticate(params['password'])
       login_user(user)
-      session['login_error'] = false
     else
-      session['login_error'] = true
+      flash['login_error'] = true
     end
 
     if request.xhr?
